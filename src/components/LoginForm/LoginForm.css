@@ -1,0 +1,14 @@
+.form{
+    width: 70vw;    
+    padding: 15px;
+}
+.box-login{
+    height: 90vh;
+}
+
+@media (max-width: 768px) {
+    .form{
+        width: 80%;
+        height: 50vh;
+    }
+ }
