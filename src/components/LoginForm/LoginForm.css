@@ -1,9 +1,10 @@
 .form{
-    width: 70vw;    
+    width: 90% !important;    
     padding: 15px;
+    margin-top: 20px;
 }
 .box-login{
-    height: 90vh;
+    height: 100%;
 }
 
 @media (max-width: 768px) {

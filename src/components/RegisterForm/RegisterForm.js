@@ -71,6 +71,7 @@ const RegisterForm = () => {
           onChange={handleChange}
         />
       </Form.Group>
+      {/* //* Ver si va lo de ingresar los cursos a cargo */}
       {/* <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
         <Form.Label>Cursos a cargo: </Form.Label>
         <Form.Control
@@ -95,10 +96,10 @@ const RegisterForm = () => {
       </Form.Group>
 
       <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicPassword">
-        <Form.Label>Repite tu contraseña: </Form.Label>
+        <Form.Label>Repite la contraseña: </Form.Label>
         <Form.Control
           type="password"
-          placeholder="Repite tu contraseña"
+          placeholder="Repite la contraseña"
           name="password2"
           value={user.password2}
           onChange={handleChange}
@@ -106,7 +107,7 @@ const RegisterForm = () => {
       </Form.Group>
       
       <Button variant="primary" type="submit">
-        Registrarme
+        Registrar
       </Button>
     </Form>
   </div>
