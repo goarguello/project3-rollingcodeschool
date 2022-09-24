@@ -1,15 +1,17 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { Container, Navbar, Nav } from "react-bootstrap";
+import "./NavbarComponent.css"
 
 const NavbarComponent = () => {
   return (
-    <Navbar className="nav" bg="light" variant="light">
+    <Navbar className="headerNav" bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="/">Inicio</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Login</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          {/* <Link to="/login" className='text-beige nav-link'>Ingresar</Link> */}
+          <Link to="/register" className='text-beige nav-link'>Registrar usuario</Link>
+          
         </Nav>
       </Container>
     </Navbar>
