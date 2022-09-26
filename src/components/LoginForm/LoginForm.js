@@ -22,7 +22,7 @@ const LoginForm = () => {
   console.log("USER", user);
 
   return (
-    <div className="container d-flex justify-content-center align-items-center box-login">
+    <div className="d-flex justify-content-center align-items-start box-login">
       <Form className="form shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
           <Form.Label>Correo electrónico:</Form.Label>
