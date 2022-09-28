@@ -1,15 +1,25 @@
-.form{
-    width: 90% !important;    
-    padding: 15px;
-    margin-top: 20px;
+
+.form-login {
+  width: 90% !important;
+  padding: 15px;
+  margin-top: 20px;
 }
-.box-login{
-    height: 100%;
+.box-login {
+  height: 100%;
+}
+
+.button {
+  background-color: rgba(128, 36, 51, 1);
+  border-style: none;
+}
+
+.button:hover {
+  background-color: rgba(128, 36, 51, 0.7) !important;
 }
 
 @media (max-width: 768px) {
-    .form{
-        width: 80%;
-        height: 50vh;
-    }
- }
+  .form {
+    width: 80%;
+    height: 50vh;
+  }
+}

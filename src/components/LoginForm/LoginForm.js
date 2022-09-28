@@ -23,7 +23,7 @@ const LoginForm = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-start box-login">
-      <Form className="form shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
+      <Form className="form-login shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
           <Form.Label>Correo electrónico:</Form.Label>
           <Form.Control
@@ -50,7 +50,7 @@ const LoginForm = () => {
             <Form.Check type="checkbox" label="Recuerdame" />
           </Form.Group>
         
-        <Button variant="primary" type="submit">
+        <Button className="button" variant="primary" type="submit">
           Entrar
         </Button>
       </Form>

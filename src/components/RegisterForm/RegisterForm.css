@@ -1,13 +1,33 @@
-.form{
-    width: 40%;
+.main {
+  height: 90vh;
 }
-.box-register{
-    height: 90vh;
+
+.form {
+  background-color: rgba(98, 99, 88, 0.5);
+  color: white;
+  width: 40% !important;
+}
+.box-register {
+  background-color: rgba(128, 36, 51, 0.5);
+  color: white;
+  height: 90vh;
+  width: 100%;
+  margin-top: 2.5vh;
+}
+
+.button{
+    background-color: rgba(128, 36, 51, 1);
+    border-style: none;
+}
+
+.button:hover{
+    background-color: rgba(128, 36, 51, 0.7) !important;
+    border-style: none;
 }
 
 @media (max-width: 768px) {
-    .form{
-        width: 80%;
-        height: auto;
-    }
- }
+  .form {
+    width: 80%;
+    height: auto;
+  }
+}
