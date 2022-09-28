@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import axiosConfig from "../../config/axiosConfig";
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -15,8 +16,15 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     //* Aca va el pedido axios a el back
+    try {
+      const userLogin = await axiosConfig.post("/login", user)
+      console.log(userLogin)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   console.log("USER", user);

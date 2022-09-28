@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import axiosConfig from "../../config/axiosConfig";
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
@@ -21,11 +22,18 @@ const RegisterForm = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     //* Aca va el pedido axios a el back
+    try {
+      const userNew = await axiosConfig.post("/users", user);
+     if(userNew.status === 201) window.alert(userNew.data.message)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  console.log("USER", user);
+  // console.log("USER", user);
 
   return (
     <div className="main">
