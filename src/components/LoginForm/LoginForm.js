@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import axiosConfig from "../../config/axiosConfig";
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -15,15 +16,22 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     //* Aca va el pedido axios a el back
+    try {
+      const userLogin = await axiosConfig.post("/login", user)
+      console.log(userLogin)
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   console.log("USER", user);
 
   return (
     <div className="d-flex justify-content-center align-items-start box-login">
-      <Form className="form shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
+      <Form className="form-login shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
           <Form.Label>Correo electrónico:</Form.Label>
           <Form.Control
@@ -50,7 +58,7 @@ const LoginForm = () => {
             <Form.Check type="checkbox" label="Recuerdame" />
           </Form.Group>
         
-        <Button variant="primary" type="submit">
+        <Button className="button" variant="primary" type="submit">
           Entrar
         </Button>
       </Form>

@@ -9,20 +9,21 @@
 }
 
 .principal-container {
+  background-color: rgba(128, 36, 51, 0.5);
+  color: white;
   width: 60%;
   height: 100%;
   margin-top: 2.5vh;
 }
 .secondary-container {
+  background-color: rgba(98, 99, 88, 0.5);
+  color: white;
   width: 40%;
   height: 100%;
   margin-top: 2.5vh;
 }
 
-.color-principal {
-  background-color: #802433;
-  color: white;
-}
+
 
 @media only screen and (max-width: 768px) {
   .main {
