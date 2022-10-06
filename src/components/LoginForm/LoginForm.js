@@ -30,7 +30,7 @@ const LoginForm = () => {
   console.log("USER", user);
 
   return (
-    <div className="d-flex justify-content-center align-items-start box-login">
+    <div className="d-flex justify-content-center align-items-center box-login">
       <Form className="form-login shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
           <Form.Label>Correo electrónico:</Form.Label>
@@ -55,7 +55,7 @@ const LoginForm = () => {
         </Form.Group>
         
           <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Recuerdame" />
+            <Form.Check className="custom-control-input" type="checkbox" label="Recuerdame" />
           </Form.Group>
         
         <Button className="button" variant="primary" type="submit">

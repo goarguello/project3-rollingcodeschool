@@ -10,7 +10,7 @@ const NavbarComponent = () => {
         <Navbar.Brand href="/">Inicio</Navbar.Brand>
         <Nav className="me-auto">
           {/* <Link to="/login" className='text-beige nav-link'>Ingresar</Link> */}
-          <Link to="/register" className='text-beige nav-link'>Registrar usuario</Link>
+          <Link to="/register" className='text-beige nav-link custom-button'>Registrar usuario</Link>
           
         </Nav>
       </Container>
