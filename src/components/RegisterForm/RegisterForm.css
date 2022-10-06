@@ -1,11 +1,14 @@
 .main {
   height: 90vh;
+  
 }
 
 .form {
   background-color: rgba(98, 99, 88, 0.5);
   color: white;
   width: 40% !important;
+  padding: 15px;
+  margin-top: 20px;
 }
 .box-register {
   background-color: rgba(128, 36, 51, 0.5);
