@@ -1,68 +1,111 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Alert, Form } from "react-bootstrap";
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+} from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
 import axiosConfig from "../../config/axiosConfig";
 import "./LoginForm.css";
+import useForm from "../../hooks/useForm";
+import { LOGIN_INITIAL_VALUES } from "../../constants";
+import { validationLogin } from "../../helpers/validations";
+import { UserContext } from "../../context/UserContext";
 
 const LoginForm = () => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const { login, authenticated } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    //* Aca va el pedido axios a el back
-    try {
-      const userLogin = await axiosConfig.post("/login", user)
-      console.log(userLogin)
-    } catch (error) {
-      console.log(error)
-    }
-  };
-
-  console.log("USER", user);
+  const { values, handleChange, handleSubmit, errors } = useForm(
+    LOGIN_INITIAL_VALUES,
+    login,
+    validationLogin
+  );
 
   return (
-    <div className="d-flex justify-content-center align-items-center box-login">
-      <Form className="form-login shadow rounded d-flex flex-column justify-content-center" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicEmail">
-          <Form.Label>Correo electrónico:</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Ingresa tu correo electrónico"
-            name="email"
-            value={user.email}
-            onChange={handleChange}
-          />
-        </Form.Group>
+    <MDBContainer fluid className="box-login">
+      <MDBRow className="d-flex justify-content-center align-items-center h-100">
+        <MDBCol col="12">
+          <Form onSubmit={handleSubmit}>
+            <MDBCard
+              className=" text-white my-5 mx-auto"
+              style={{
+                backgroundColor: "rgba(137, 137, 137, 0.6)",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
+                borderRadius: "1rem",
+                maxWidth: "400px",
+              }}
+            >
+              <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100 box">
+                <h2 className="fw-bold mb-3 text-uppercase">Login</h2>
+                <p className="text-white-50 mb-3">
+                  Por favor, ingresa tu correo electrónico y contraseña.
+                </p>
 
-        <Form.Group className="mb-3 d-flex flex-column align-items-start" controlId="formBasicPassword">
-          <Form.Label>Contraseña: </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            value={user.password}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        
-          <Form.Group className="mb-3 d-flex" controlId="formBasicCheckbox">
-            <Form.Check className="custom-control-input" type="checkbox" label="Recuerdame" />
-          </Form.Group>
-        
-        <Button className="button" variant="primary" type="submit">
-          Entrar
-        </Button>
-      </Form>
-    </div>
+                <MDBInput
+                  wrapperClass="mb-4 mx-5 w-100"
+                  labelClass="text-white"
+                  wrapperStyle={{}}
+                  label="Correo electrónico"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  id="formControlEmail"
+                  type="email"
+                  size="lg"
+                  required
+                />
+                <MDBInput
+                  wrapperClass="mb-2 mx-5 w-100"
+                  labelClass="text-white"
+                  label="Contraseña"
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  id="formControlPassword"
+                  type="password"
+                  size="lg"
+                  required
+                />
+
+                <p className="small my-0 pb-lg-2">
+                  <a className="text-white-50" href="/404">
+                    ¿Olvidaste tu contraseña?
+                  </a>
+                </p>
+                <MDBBtn
+                  type="submit"
+                  className="mx-2 mb-2 px-5 my-2 button"
+                  size="lg"
+                >
+                  Entrar
+                </MDBBtn>
+
+                <div>
+                  <p className="mb-0">
+                    ¿No tienes usuario?
+                    <a href="/register" className="mx-1 text-white-50 ">
+                      Registrate
+                    </a>
+                  </p>
+                </div>
+                {Object.keys(errors).length != 0
+                  ? Object.values(errors).map((error) => (
+                      <Alert variant="danger">{error}</Alert>
+                    ))
+                  : null}
+              </MDBCardBody>
+            </MDBCard>
+          </Form>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 };
 
