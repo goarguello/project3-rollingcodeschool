@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import background from "./assets/img/background.jpg";
+import LandingPage from "./components/LandingPage/LandingPage";
+import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+import UserProvider from "./context/UserContext";
+import Error404 from "./pages/Error404";
+import Home from "./pages/Home";
+import LoginMobile from "./pages/LoginMobile";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <UserProvider>
+        <div
+          style={{
+            height: "100vh",
+            backgroundImage: `url(${background})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            overflow: "scroll"
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <NavbarComponent />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<LoginMobile />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/404" element={<Error404 />} />
+            <Route path="/*" element={<LandingPage />} />
+          </Routes>
+        </div>
+      </UserProvider>
+    </Router>
   );
 }
 
