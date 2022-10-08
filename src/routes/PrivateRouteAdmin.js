@@ -10,8 +10,13 @@ const PrivateRoute = ({ children }) => {
     getAuth();
   }, []);
 
-  
-  return authenticated ? children : <Navigate to="/login" />;
+  console.log(user);
+
+  return authenticated && user.role === "ADMIN" ? (
+    children
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default PrivateRoute;
