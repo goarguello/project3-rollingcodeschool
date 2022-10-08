@@ -9,6 +9,8 @@ import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
 import LoginMobile from "./pages/LoginMobile";
 import SubjectPage from "./pages/SubjectPage";
+import StudentsPage from "./pages/StudentsPage";
+import UsersPage from "./pages/UsersPage";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
             <Route path="/register" element={<RegisterForm />} />
             <Route path="*" element={<Error404 />} />
             <Route path="/admin" element={<AdminPage />} />
-            <Route path="/subjecttable" element={<SubjectPage />} />
+            <Route path="/subject-admin" element={<SubjectPage />} />
+            <Route path="/students-admin" element={<StudentsPage  />} />
+            <Route path="/users-admin" element={<UsersPage />} />
           </Routes>
         </div>
       </UserProvider>

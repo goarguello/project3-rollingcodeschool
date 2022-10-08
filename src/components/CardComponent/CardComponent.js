@@ -1,17 +1,20 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 import "./CardComponent.css"
-function CardComponent({name, img}) {
+function CardComponent({name, img, url}) {
 return (
     <Card className='Card_div'>
-    <Card.Img variant="top" src={img} />
+    <Card.Img className='Card-img' variant="top" src={img} />
     <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
         Some quick example text to build on the card title and make up the
         bulk of the card's content.
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Link to={url}>
+        <Button  variant="primary">Administrar {name}</Button>
+        </Link>
     </Card.Body>
     </Card>
 );
