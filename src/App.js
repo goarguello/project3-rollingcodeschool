@@ -11,6 +11,8 @@ import LoginMobile from "./pages/LoginMobile";
 import SubjectPage from "./pages/SubjectPage";
 import StudentsPage from "./pages/StudentsPage";
 import UsersPage from "./pages/UsersPage";
+import PrivateRoute from "./routes/PrivateRoute";
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            overflow: "scroll"
+            overflow: "scroll",
           }}
         >
           <NavbarComponent />
@@ -33,10 +35,38 @@ function App() {
             <Route path="/login" element={<LoginMobile />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="*" element={<Error404 />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/subject-admin" element={<SubjectPage />} />
-            <Route path="/students-admin" element={<StudentsPage  />} />
-            <Route path="/users-admin" element={<UsersPage />} />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRouteAdmin>
+                  <AdminPage />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/subject-admin"
+              element={
+                <PrivateRouteAdmin>
+                  <SubjectPage />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/students-admin"
+              element={
+                <PrivateRouteAdmin>
+                  <StudentsPage />
+                </PrivateRouteAdmin>
+              }
+            />
+            <Route
+              path="/users-admin"
+              element={
+                <PrivateRouteAdmin>
+                  <UsersPage />
+                </PrivateRouteAdmin>
+              }
+            />
           </Routes>
         </div>
       </UserProvider>

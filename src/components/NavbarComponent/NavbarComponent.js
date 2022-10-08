@@ -41,7 +41,7 @@ const NavbarComponent = () => {
               {user ? (
                 <>
                   <div className="box-3 mb-2">
-                    <Link to="/404" className="btn btn-three custom-button">
+                    <Link to="/admin" className="btn btn-three custom-button">
                       Admin
                     </Link>
                   </div>
@@ -105,7 +105,7 @@ const NavbarComponent = () => {
               {/* <Link to="/login" className='text-beige nav-link'>Ingresar</Link> */}
 
               <div className="box-3 mx-3">
-                <Link to="/register" className="btn btn-three custom-button">
+                <Link to="/admin" className="btn btn-three custom-button">
                   Admin
                 </Link>
               </div>

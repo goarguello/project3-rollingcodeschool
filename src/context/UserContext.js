@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
       setToken(data.token);
       setAuthenticated(true);
       localStorage.setItem("token", data.token);
-      navigate("/home");
+      navigate("/admin");
     } catch (error) {
       console.log(error);
       if (localStorage.getItem("token")) {
@@ -40,8 +40,8 @@ const UserProvider = ({ children }) => {
     }
     try {
       const response = await axiosInstance.get("/users/auth");
-      const data = response.data;
-      setUser(data.user);
+      const data = response.data;     
+      setUser(data);
       setAuthenticated(true);
     } catch (error) {
       setAuthenticated(false);
@@ -84,7 +84,7 @@ const UserProvider = ({ children }) => {
         login,
         authenticated,
         token,
-        // getAuth,
+        getAuth,
         logout,
         register,
       }}
