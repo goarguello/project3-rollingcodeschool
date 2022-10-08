@@ -4,6 +4,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import UserProvider from "./context/UserContext";
+import AdminPage from "./pages/AdminPage";
 import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
 import LoginMobile from "./pages/LoginMobile";
@@ -28,8 +29,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<LoginMobile />} />
             <Route path="/register" element={<RegisterForm />} />
-            <Route path="/404" element={<Error404 />} />
-            <Route path="/*" element={<LandingPage />} />
+            <Route path="*" element={<Error404 />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </div>
       </UserProvider>
