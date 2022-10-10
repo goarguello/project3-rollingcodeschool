@@ -12,7 +12,7 @@ const UserProvider = ({ children }) => {
 
   const login = async (values) => {
     try {
-      const response = await axiosInstance.post("login", values);
+      const response = await axiosInstance.post("/login", values);
       const data = response.data;
       setUser(data.user);
       setToken(data.token);
