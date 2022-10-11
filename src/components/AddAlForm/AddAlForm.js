@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
+import { validationAddAl } from "../../helpers/validations";
 
 const AddAlForm = ({getStudents, handleCloseAdd}) => {
     const [values, setValues] = useState({
@@ -26,6 +27,10 @@ const AddAlForm = ({getStudents, handleCloseAdd}) => {
             console.log(error);
         }
     }
+
+    // const {values, handleChange, handleSubmit, errors} = useForm(addAlumn, validationAddAl)
+
+
     return ( 
         <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" >
@@ -48,9 +53,17 @@ const AddAlForm = ({getStudents, handleCloseAdd}) => {
         <Form.Control type="text" name="adress" onChange={handleChange} value={values.adress} />
       </Form.Group>
       
-      <Button variant="primary" type="submit" onClick={handleCloseAdd} >
+      <Button className="btn-alumns" variant="primary" type="submit" onClick={handleCloseAdd} >
         Agregar
       </Button>
+      {/* {Object.keys(errors).length!=0?
+      Object.values(errors).map(error=>
+        <Alert variant="danger">
+          {error}
+        </Alert>
+        )
+      :null
+    } */}
     </Form>
      );
 }

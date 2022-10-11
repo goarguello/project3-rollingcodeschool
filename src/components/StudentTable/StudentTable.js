@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
 import axiosConfig from "../../config/axiosConfig";
 import AddAlModal from "../AddAlModal/AddAlModal";
-// import './StudentTable.css'
+import EditAlModal from "../EditAlModal/EditAlModal";
+import './StudentTable.css'
 
 
 const StudentTable = () => {
@@ -42,8 +44,8 @@ const StudentTable = () => {
     },[])
     return ( 
         <>
-        <button onClick={handleShowAdd}>Agregar un alumno</button>
-        <Table responsive striped bordered hover>
+        <Button className="btn-alumns" onClick={handleShowAdd}>Agregar un alumno</Button>
+        <Table className="Student-Table" responsive striped bordered hover>
       <thead>
         <tr className="">
           <th>#</th>
@@ -54,7 +56,6 @@ const StudentTable = () => {
           <th>Domicilio</th>
           <th> </th>
           <th> </th>
-
         </tr>
       </thead>
       <tbody>{
@@ -65,23 +66,26 @@ const StudentTable = () => {
           <td>{student.curse}</td>
           <td>{student.cuoteDay}</td>
           <td>{student.phone}</td>
-          <td>{student.address}</td>
+          <td>{student.adress}</td>
           <td>
-            <Button onClick={()=>handleEdit(student._id)}>Editar</Button>
+            <Button className="btn-alumns" onClick={()=>handleShowEdit(student._id)}><AiFillEdit/>EDITAR</Button>
           </td>
           <td>
-            <Button  onClick={()=>handleDelete(student._id)}>Borrar</Button>
+            <Button className="btn-alumns" onClick={()=>handleDelete(student._id)}><AiFillDelete/> ELIMINAR</Button>
           </td>
         </tr>
         )
         }
       </tbody>
     </Table>
-    <AddAlModal handleCloseAdd={handleCloseAdd} showAdd={showAdd} getStudents={getStudents} ></AddAlModal>
-    {/* <EditAlModal handleCloseEdit={handleCloseEdit} showEdit={showEdit} getStudents={getStudents} selected={selected} ></EditAlModal> */}
+    <AddAlModal handleCloseAdd={handleCloseAdd} showAdd={showAdd} getStudents={getStudents} />
+    <EditAlModal handleCloseEdit={handleCloseEdit} showEdit={showEdit} getStudents={getStudents} selected={selected} />
 
     </>
      );
 }
  
 export default StudentTable;
+
+{/* <Button variant='warning' onClick={()=>handleEdit(bike.id)} className='me-2'><AiFillEdit className='border-text'/></Button>
+<Button variant='danger' onClick={()=>handleDelete(bike.id)}><AiFillDelete/></Button> */}

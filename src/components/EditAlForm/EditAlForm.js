@@ -5,7 +5,7 @@ import axiosConfig from "../../config/axiosConfig";
 const EditAlForm = ({getStudents, handleCloseEdit, selected}) => {
     const [values, setValues] = useState({
         nameCompleted:'',
-        curse:0,
+        curse:'',
         phone:'',
         address:''
     });
@@ -19,7 +19,6 @@ const EditAlForm = ({getStudents, handleCloseEdit, selected}) => {
         try {
             const response = await axiosConfig.get('/alumns/'+selected);
             setValues(response.data)
-
         } catch (error) {
             alert(error.message)
         }
@@ -29,17 +28,18 @@ const EditAlForm = ({getStudents, handleCloseEdit, selected}) => {
         getStudent()
     },[]);
 
-    // const handleSubmit = async(e) =>{
-    //     try {
-    //         e.preventDefault();
-    //         await axiosConfig.post('/alumns',values)
-    //         getStudents()
-    //     } catch (error) {
-    //         alert('Error al cargar un nuevo alumno')
-    //     }
-    // }
+    const handleSubmit = async(e) =>{
+        try {
+            e.preventDefault();
+            await axiosConfig.put('/alumns/'+selected,values)
+            getStudents()
+        } catch (error) {
+            alert('Error al editar un alumno')
+        }
+    }
+
     return ( 
-        <Form>
+        <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" >
         <Form.Label>Nombre completo</Form.Label>
         <Form.Control type="text" name="nameCompleted" onChange={handleChange} value={values.nameCompleted} />
@@ -59,12 +59,9 @@ const EditAlForm = ({getStudents, handleCloseEdit, selected}) => {
         <Form.Label>Direccion</Form.Label>
         <Form.Control type="text" name="address" onChange={handleChange} value={values.address} />
       </Form.Group>
-
       
-
-      
-      <Button variant="primary" type="submit" onClick={handleCloseEdit} >
-        Agregar
+      <Button className="btn-alumns" variant="primary" type="submit" onClick={handleCloseEdit} >
+        Editar
       </Button>
     </Form>
      );
