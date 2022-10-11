@@ -7,6 +7,7 @@ import { BsFillTrashFill } from 'react-icons/bs'
 import { HiDocumentAdd } from 'react-icons/hi'
 import AddModalSubject from '../AddModalsubject/AddModalSubject'
 import EditModalSubjects from '../EditModalSubjects/EditModalSubjects'
+import './SubjectTable.css'
 
 const SubjectTable = () => {
   const [subjectsData, setSubjectsData] = useState([])
@@ -14,6 +15,7 @@ const SubjectTable = () => {
   const [showEditSubject, setShowEditSubject] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [page, setPage] = useState(1)
+  const [totalSubjects, setTotalSubjects] = useState(0)
   const [editSelected, setEditSelected] = useState(null)
   const [editting, setEditting] = useState(false)
   
@@ -26,9 +28,9 @@ const SubjectTable = () => {
 
   const getSubjects = async () => {
       try {
-        const res = await axiosConfig.get(`/subjects?page=${page}&limit=5`)
-        console.log(res);
+        const res = await axiosConfig.get(`/subjects?page=${page}&limit=10`)
         setSubjectsData(res.data.subjects);
+        setTotalSubjects(res.data.total)
         setIsLoading(false)
       } catch (error) {
         alert(error.message);
@@ -56,21 +58,22 @@ const SubjectTable = () => {
     setEditting(true)
   }
 
-  // 
+   
    let items = []
-  //  for (let number= 1; number <= Math.ceil(16 / 5) ; number++) {
-  //    items.push(<Pagination.Item key={number} onClick={() => setPage(number)} active={number === page}>{number}</Pagination.Item> )
-  // }
+   for (let number= 1; number <= Math.ceil(totalSubjects / 10); number++) {
+     items.push(<Pagination.Item key={number} onClick={() => setPage(number)} active={number === page}>{number}</Pagination.Item> )
+   }
   return (
     <>
       <div className='d-flex justify-content-between me-3 my-3'>
         <Pagination>{items}</Pagination>
         <button onClick={handleShowAddSubject} className='btn btn-success shadow'><HiDocumentAdd/></button>
       </div>
+      <div className='table_subjects'>
       <Table responsive striped bordered hover>
         <thead>
           <tr>
-            <th>cantidad</th>
+            <th>Cantidad</th>
             <th>Materia</th>
             <th>Acciones</th>
           </tr>
@@ -90,6 +93,7 @@ const SubjectTable = () => {
           }
         </tbody>
       </Table>
+      </div>
         { isLoading && <div className='d-flex justify-content-center'><Spinner animation="border"/></div> }
       <AddModalSubject 
       getSubjects={getSubjects} 

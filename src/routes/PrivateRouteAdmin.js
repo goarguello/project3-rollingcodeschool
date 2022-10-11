@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-const PrivateRoute = ({ children }) => {
-  const { authenticated, getAuth, loading } = useContext(UserContext);
+const PrivateRouteAdmin = ({ children }) => {
+  const { user, authenticated, getAuth, loading } = useContext(UserContext);
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
@@ -12,11 +12,16 @@ const PrivateRoute = ({ children }) => {
     setFlag(true);
   }, []);
 
-  // console.log(authenticated);
-
   if (loading) return "Cargando...";
-
-  return flag ? authenticated ? children : <Navigate to="/" /> : "Cargando...";
+  return flag ? (
+    authenticated && user.role === "ADMIN" ? (
+      children
+    ) : (
+      <Navigate to="/home" />
+    )
+  ) : (
+    "Cargando..."
+  );
 };
 
-export default PrivateRoute;
+export default PrivateRouteAdmin;
