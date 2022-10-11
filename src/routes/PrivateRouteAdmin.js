@@ -4,19 +4,16 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const PrivateRoute = ({ children }) => {
-  const { authenticated, getAuth, user } = useContext(UserContext);
+  const { user, authenticated, getAuth } = useContext(UserContext);
 
   useEffect(() => {
     getAuth();
   }, []);
 
-  console.log(user);
+  // console.log(user.role === "ADMIN");
+  console.log(authenticated);
 
-  return authenticated && user.role === "ADMIN" ? (
-    children
-  ) : (
-    <Navigate to="/login" />
-  );
+  return authenticated ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

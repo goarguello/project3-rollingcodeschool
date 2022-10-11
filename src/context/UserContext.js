@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
+import axiosConfig from "../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../config/axiosConfig";
 
 export const UserContext = createContext();
 
@@ -12,13 +12,13 @@ const UserProvider = ({ children }) => {
 
   const login = async (values) => {
     try {
-      const response = await axiosInstance.post("login", values);
+      const response = await axiosConfig.post("/login", values);
       const data = response.data;
       setUser(data.user);
       setToken(data.token);
       setAuthenticated(true);
       localStorage.setItem("token", data.token);
-      navigate("/admin");
+      navigate("/home");
     } catch (error) {
       console.log(error);
       if (localStorage.getItem("token")) {
@@ -34,13 +34,13 @@ const UserProvider = ({ children }) => {
   const getAuth = async () => {
     const token = localStorage.getItem("token");
     if (token) {
-      axiosInstance.defaults.headers.common["authorization"] = token;
+      axiosConfig.defaults.headers.common["authorization"] = token;
     } else {
-      delete axiosInstance.defaults.headers.common["authorization"];
+      delete axiosConfig.defaults.headers.common["authorization"];
     }
     try {
-      const response = await axiosInstance.get("/users/auth");
-      const data = response.data;     
+      const response = await axiosConfig.get("/users/auth");
+      const data = response.data;
       setUser(data);
       setAuthenticated(true);
     } catch (error) {
@@ -65,7 +65,7 @@ const UserProvider = ({ children }) => {
 
   const register = async (values) => {
     try {
-      const userNew = await axiosInstance.post("/users", values);
+      const userNew = await axiosConfig.post("/users", values);
       if (userNew.status === 201) {
         window.alert(userNew.data.message);
         navigate("/");

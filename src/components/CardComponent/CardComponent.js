@@ -13,7 +13,7 @@ return (
         bulk of the card's content.
         </Card.Text>
         <Link to={url}>
-        <Button  variant="primary">Administrar {name}</Button>
+        <Button  variant="primary" className='button'>Administrar {name}</Button>
         </Link>
     </Card.Body>
     </Card>
