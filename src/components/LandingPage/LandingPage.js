@@ -3,10 +3,15 @@ import "./LandingPage.css";
 import logo from "../../assets/img/Rolling-School-Logo.png";
 import LoginForm from "../LoginForm/LoginForm";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { Navigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const user = localStorage.getItem("token");
   const { width } = useMediaQuery();
-  return (
+
+  return user ? (
+    <Navigate to="/home" />
+  ) : (
     <div className="principal d-flex align-items-center justify-content-center">
       <div className="container d-flex main flex-wrap align-items-center justify-content-center">
         <div className="principal-container d-flex justify-content-center align-items-center">

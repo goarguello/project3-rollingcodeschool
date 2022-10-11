@@ -13,6 +13,8 @@ import StudentsPage from "./pages/StudentsPage";
 import UsersPage from "./pages/UsersPage";
 import PrivateRoute from "./routes/PrivateRoute";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
+import NormalStudentPage from "./pages/NormalStudentPage";
+import SubjectsList from "./pages/SubjectsList";
 import UsersIsAceptedPage from "./pages/UsersIsAceptedPage";
 
 function App() {
@@ -32,9 +34,32 @@ function App() {
           <NavbarComponent />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<LoginMobile />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route
+              path="/students"
+              element={
+                <PrivateRoute>
+                  <NormalStudentPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/subjects"
+              element={
+                <PrivateRoute>
+                  <SubjectsList />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<Error404 />} />
             <Route path="/isacepted" element={<PrivateRouteAdmin><UsersIsAceptedPage /></PrivateRouteAdmin>} />
             <Route
