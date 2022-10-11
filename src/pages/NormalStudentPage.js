@@ -40,12 +40,15 @@ const NormalStudentPage = () => {
     getStudents();
   }, []);
 
+console.log(students)
+
   return (
     <div className="container main-normal-students d-flex flex-wrap align-items-start justify-content-center pt-5">
       <div className="mt-4 overflow-auto">
+        <h1 className="text-center">Alumnos</h1>
         <Table responsive striped bordered hover>
           <thead>
-            <tr>
+            <tr className="text-center">
               <th>Nombre completo</th>
               <th>Número de expediente</th>
               <th>Curso</th>
@@ -55,11 +58,11 @@ const NormalStudentPage = () => {
           </thead>
           <tbody>
             {students?.map((student, i) => (
-              <tr key={i}>
+              <tr className="text-center" key={i}>
                 <td>{student.nameCompleted}</td>
                 <td>{student._id}</td>
                 <td>{student.curse}</td>
-                <td className="text-center">{student.cuoteDay ? "🟢" : "🟠"}</td>
+                <td>{student.cuoteDay ? "🟢" : "🟠"}</td>
                 <td>
                   <GiMagnifyingGlass
                     onClick={() => handleShow(student._id)}
