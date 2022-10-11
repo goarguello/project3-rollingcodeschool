@@ -1,19 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-const PrivateRoute = ({ children }) => {
-  const { user, authenticated, getAuth } = useContext(UserContext);
+const PrivateRouteAdmin = ({ children }) => {
+  const { user, authenticated, getAuth, loading } = useContext(UserContext);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     getAuth();
+    setFlag(true);
   }, []);
 
-  // console.log(user.role === "ADMIN");
-  console.log(authenticated);
-
-  return authenticated ? children : <Navigate to="/login" />;
+  if (loading) return "Cargando...";
+  return flag ? (
+    authenticated && user.role === "ADMIN" ? (
+      children
+    ) : (
+      <Navigate to="/home" />
+    )
+  ) : (
+    "Cargando..."
+  );
 };
 
-export default PrivateRoute;
+export default PrivateRouteAdmin;

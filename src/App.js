@@ -61,7 +61,14 @@ function App() {
               }
             />
             <Route path="*" element={<Error404 />} />
-            <Route path="/isacepted" element={<PrivateRouteAdmin><UsersIsAceptedPage /></PrivateRouteAdmin>} />
+            <Route
+              path="/isacepted"
+              element={
+                <PrivateRouteAdmin>
+                  <UsersIsAceptedPage />
+                </PrivateRouteAdmin>
+              }
+            />
             <Route
               path="/admin"
               element={

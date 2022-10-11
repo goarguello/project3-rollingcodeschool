@@ -8,15 +8,18 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const login = async (values) => {
     try {
+      setLoading(true);
       const response = await axiosConfig.post("/login", values);
       const data = response.data;
       setUser(data.user);
       setToken(data.token);
       setAuthenticated(true);
+      setLoading(false);
       localStorage.setItem("token", data.token);
       navigate("/home");
     } catch (error) {
@@ -39,11 +42,15 @@ const UserProvider = ({ children }) => {
       delete axiosConfig.defaults.headers.common["authorization"];
     }
     try {
+      setLoading(true);
       const response = await axiosConfig.get("/users/auth");
       const data = response.data;
+      console.log(data);
       setUser(data);
       setAuthenticated(true);
+      setLoading(false);
     } catch (error) {
+      console.log("HOLA TOY ACA")
       setAuthenticated(false);
       setUser(null);
       setToken(null);
@@ -87,6 +94,7 @@ const UserProvider = ({ children }) => {
         getAuth,
         logout,
         register,
+        loading,
       }}
     >
       {children}
