@@ -1,13 +1,11 @@
-import SubjectTable from "../components/SubjectTable/SubjectTable";
+import StudentTable from "../components/StudentTable/StudentTable";
 
 const StudentsPage = () => {
-  return (
-    <div className="principal d-flex align-items-center justify-content-center">
-      <div className="container bg-white  main ">
-        <SubjectTable />
-      </div>
-    </div>
-  );
-};
-
+    return ( 
+        <div className="container my-4">
+        <StudentTable className="my-4"  />
+        </div>
+     );
+}
+ 
 export default StudentsPage;
