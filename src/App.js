@@ -15,6 +15,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import NormalStudentPage from "./pages/NormalStudentPage";
 import SubjectsList from "./pages/SubjectsList";
+import UsersIsAceptedPage from "./pages/UsersIsAceptedPage";
 
 function App() {
   return (
@@ -59,6 +60,8 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="*" element={<Error404 />} />
+            <Route path="/isacepted" element={<PrivateRouteAdmin><UsersIsAceptedPage /></PrivateRouteAdmin>} />
             <Route
               path="/admin"
               element={
@@ -91,7 +94,6 @@ function App() {
                 </PrivateRouteAdmin>
               }
             />
-            <Route path="*" element={<Error404 />} />
           </Routes>
         </div>
       </UserProvider>
