@@ -3,26 +3,28 @@ import { Link, useLocation } from "react-router-dom";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import "./NavbarComponent.css";
-import { UserContext } from "../../context/UserContext";
+import  { UserContext } from "../../context/UserContext";
 import { BarsOutlined, HomeOutlined } from "@ant-design/icons";
 
 const NavbarComponent = () => {
   const { logout } = useContext(UserContext);
   const { pathname } = useLocation();
   const { width } = useMediaQuery();
-  const user = localStorage.getItem("token");
+  const { user } = useContext(UserContext);
+  // console.log(user);
+  const userLog = localStorage.getItem("token");
 
-  return width < 768 ? (
+  return width < 995 ? (
     <Navbar className="headerNav" bg="light" variant="light" expand="lg">
       <Container>
         <div className="box-1">
           {pathname === "/" ? (
             <Navbar.Brand
-            className="btn btn-one custom-button mx-auto"
-            href="/"
-          >
-            <HomeOutlined />
-          </Navbar.Brand>
+              className="btn btn-one custom-button mx-auto"
+              href="/"
+            >
+              <HomeOutlined />
+            </Navbar.Brand>
           ) : (
             <Navbar.Brand
               className="btn btn-one custom-button mx-auto"
@@ -38,7 +40,7 @@ const NavbarComponent = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <div className="d-flex flex-column justify-content-center align-items-end">
-              {user ? (
+              {userLog ? (
                 <>
                   <div className="box-3 mb-2">
                     <Link to="/admin" className="btn btn-three custom-button">
@@ -100,7 +102,7 @@ const NavbarComponent = () => {
           )}
         </div>
         <div>
-          {user ? (
+          {userLog ? (
             <Nav className="me-auto">
               {/* <Link to="/login" className='text-beige nav-link'>Ingresar</Link> */}
 

@@ -13,7 +13,16 @@ const Error404 = () => {
   useEffect(() => {
     home();
   }, []);
-  return <div>Error, será redirigido a la pagina inicial en 10 segundos</div>;
+  
+  return (
+    <div className="principal d-flex align-items-center justify-content-center">
+      <div className="container bg-white d-flex main flex-wrap align-items-center justify-content-center">
+        <p>
+          Error 404 - Seras redirigido a la pagina principal en 10 segundos.
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default Error404;

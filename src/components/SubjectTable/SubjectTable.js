@@ -73,7 +73,7 @@ const SubjectTable = () => {
       <Table responsive striped bordered hover>
         <thead>
           <tr>
-            <th>cantidad</th>
+            <th>Cantidad</th>
             <th>Materia</th>
             <th>Acciones</th>
           </tr>
