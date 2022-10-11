@@ -14,11 +14,26 @@ code {
 
 .principal-home {
   height: 93vh;
-  
+  margin-top: 65px;
 }
 
 .main-home {
-  height: 90vh;
+  height: auto;
+  margin-top: 5px;
+  background-color: white;
+}
+
+.main-normal-students{
+  min-height: 92vh;
+  height: auto;
+  margin-top: 5px;
+  background-color: white;
+}
+
+.main-normal-subjects{
+  min-height: 90vh;
+  height: auto;
+  margin-top: 5px;
   background-color: white;
 }
 

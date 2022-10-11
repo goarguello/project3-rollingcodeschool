@@ -6,7 +6,7 @@ import axiosConfig from '../../config/axiosConfig'
 
 const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showEditSubject, editSelected}) => {
   const [value, setValue] = useState({})
-  const [valueGet, setValueGet] = useState('')
+ 
   
   const handleEditSubject = async (e) => {
     e.preventDefault()
@@ -22,7 +22,7 @@ const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showE
   const getSubject = async () => {
     try {
       const res = await axiosConfig.get(`/subjects/${editSelected}`)
-      setValueGet(res.data);
+      setValue(res.data);
       
      } catch (error) {
        console.log(error);
@@ -43,8 +43,7 @@ const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showE
     <Modal.Body>
       <Form onSubmit={handleEditSubject}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-           <div className='my-2'>Campo A Modificar : {valueGet.name}</div> 
-          <Form.Control onChange={(e) => setValue({name: e.target.value})} type="text" placeholder="introduce la Modicacion" />
+           <Form.Control value={value.name} onChange={(e) => setValue({name: e.target.value})} type="text" placeholder="introduce la Modicacion" />
         </Form.Group>
           <div className='d-flex justify-content-end'>
           <Button variant="primary" type="submit">
