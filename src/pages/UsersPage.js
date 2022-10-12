@@ -1,7 +1,9 @@
+import AdminTable from "../components/AdminTable/AdminTable";
+
 const UsersPage = () => {
     return ( 
-        <p>Users</p>
-     );
+        <AdminTable/>
+    );
 }
  
 export default UsersPage

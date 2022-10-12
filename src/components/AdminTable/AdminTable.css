@@ -1,1 +1,9 @@
-import
+.border-text{
+    width: 2px;
+    background-color: blue;
+}
+.add-button-style{
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+}
