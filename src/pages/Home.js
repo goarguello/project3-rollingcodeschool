@@ -61,7 +61,7 @@ const Home = () => {
             <h1>Alumnos</h1>
             <div className="d-flex flex-column align-items-center flex-md-row justify-content-md-center flex-lg-column align-items-lg-center">
               <CardComponent
-                name={"Alumnos"}
+                name={"Ver alumnos"}
                 img={
                   "https://media.istockphoto.com/photos/teenage-school-kids-smiling-to-camera-in-school-corridor-picture-id826212368?b=1&k=20&m=826212368&s=170667a&w=0&h=gYQ2zFTRSClCOoGI0P__MmDjFZZvQkKhcYC7_zDZefk="
                 }
@@ -71,7 +71,7 @@ const Home = () => {
             <h1>Materias</h1>
             <div className="d-flex flex-column align-items-center flex-md-row justify-content-md-center flex-lg-column align-items-lg-center">
               <CardComponent
-                name={"Materias"}
+                name={"Ver materias"}
                 img={
                   "https://as2.ftcdn.net/v2/jpg/01/93/92/99/1000_F_193929975_aljh2eRP7pZ5MhnuO9R3WrbcEpQGkljB.jpg"
                 }

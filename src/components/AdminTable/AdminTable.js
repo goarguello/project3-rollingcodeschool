@@ -32,22 +32,31 @@ const AdminTable = () => {
     }
   };
 
-
+  const deleteUser = async (id) => {
+    try {
+      if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
+        await axiosConfig.delete(`/users/${id}`);
+      }
+      getUser();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   useEffect(() => {
     getUser();
   }, []);
   return (
     <>
-      <Button className="button" variant="primary" onClick={handleShow}>
+    <div className="d-flex justify-content-end">
+
+      <Button className="btn btn-success shadow my-3 w-auto" variant="primary" onClick={handleShow}>
         Registrar usuario
       </Button>
-      <Button className="button" variant="primary" onClick={handleShowEdit}>
-        Modificar usuario
-      </Button>
-      <Table responsive striped bordered hover>
+    </div>
+      <Table className="admin-table" responsive striped bordered hover>
         <thead>
-          <tr>
+          <tr className="text-center">
             <th>ID</th>
             <th>Nombre completo</th>
             <th>Correo electrónico</th>
@@ -55,7 +64,7 @@ const AdminTable = () => {
             <th>Dirección</th>
             <th>Curso a cargo</th>
             <th>¿Usuario habilitado?</th>
-            <th>aciones</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -68,16 +77,23 @@ const AdminTable = () => {
               <td>{user.adress}</td>
               <td>{user.courseInCharge}</td>
               <td>{user.state ? "Habilitado" : "Deshabilitado"}</td>
-              <td className="text-center">
-                <button variant="primary" className="me-2">
-                  <BiEditAlt
+              <td className="">
+                <div className="d-flex align-items-start justify-content-center">
+                  <Button
                     onClick={() => handleShowEdit(user._id)}
-                    className="fs-3"
-                  />
-                </button>
-                <button variant="warning">
-                  <AiFillDelete className="fs-3" />
-                </button>
+                    className="button w-50 me-2 mt-0"
+                  >
+                    <BiEditAlt />
+                    editar
+                  </Button>
+                  <Button
+                    onClick={() => deleteUser(user._id)}
+                    className="button w-50 mt-0"
+                  >
+                    <AiFillDelete />
+                    eliminar
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}

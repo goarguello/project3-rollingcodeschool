@@ -1,12 +1,5 @@
 .table_userIsAcepted {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-  transition: all 400ms ease;
+  margin-top: 20px;
+  background-color: white;
+  color: rgba(110, 13, 37, 0.7);
 }
-.table_userIsAcepted thead > tr > th {
-  color: white;
-} 
-
-.table_userIsAcepted > thead, tbody > tr > th, td {
- color: white !important; 
-} 

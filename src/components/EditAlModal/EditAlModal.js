@@ -10,7 +10,7 @@ const EditAlModal = ({showEdit, handleCloseEdit, getStudents, selected}) => {
           <Modal.Title>Editar un alumno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <EditAlForm getStudents={getStudents} handleCloseEdit={handleCloseEdit} selected={selected} />
+            <EditAlForm getStudents={getStudents} handleCloseEdit={handleCloseEdit} selected={selected}/>
         </Modal.Body>
       </Modal>
     </>

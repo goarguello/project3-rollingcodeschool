@@ -1,4 +1,23 @@
 .table_subjects {
-  background: rgba(255, 255, 255, 0.404);
+  margin-top: 20px;
+  background-color: white;
+  color: rgba(110, 13, 37, 0.7);
   
 }
+
+.page-link{
+  color: #fff;
+  background-color: rgba(128, 36, 51, 1) !important;
+  outline: none;
+  border: 0;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.page-link:hover{
+  background-color: rgba(128, 36, 51, 0.7) !important;
+}
+

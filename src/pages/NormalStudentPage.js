@@ -43,46 +43,46 @@ const NormalStudentPage = () => {
 console.log(students)
 
   return (
-    <div className="container main-normal-students d-flex flex-wrap align-items-start justify-content-center pt-5">
-      <div className="mt-4 overflow-auto">
-        <h1 className="text-center">Alumnos</h1>
-        <Table responsive striped bordered hover>
-          <thead>
-            <tr className="text-center">
-              <th>Nombre completo</th>
-              <th>Número de expediente</th>
-              <th>Curso</th>
-              <th>Cuota al día</th>
-              <th></th>
+    <div className='container my-5'>
+      <h1 className="text-center">Página de Administración de Materias</h1>
+      
+      <Table  className="table_subjects" responsive striped bordered hover>
+        <thead>
+          <tr className="text-center">
+            <th>Nombre completo</th>
+            <th>Número de expediente</th>
+            <th>Curso</th>
+            <th>Cuota al día</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {students?.map((student, i) => (
+            <tr className="text-center" key={i}>
+              <td>{student.nameCompleted}</td>
+              <td>{student._id}</td>
+              <td>{student.curse}</td>
+              <td>{student.cuoteDay ? "🟢" : "🟠"}</td>
+              <td>
+                <GiMagnifyingGlass
+                  onClick={() => handleShow(student._id)}
+                  className="fs-3"
+                />
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {students?.map((student, i) => (
-              <tr className="text-center" key={i}>
-                <td>{student.nameCompleted}</td>
-                <td>{student._id}</td>
-                <td>{student.curse}</td>
-                <td>{student.cuoteDay ? "🟢" : "🟠"}</td>
-                <td>
-                  <GiMagnifyingGlass
-                    onClick={() => handleShow(student._id)}
-                    className="fs-3"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <StudentModal
-          show={show}
-          setShow={setShow}
-          id={id}
-          setId={setId}
-          subject={subject}
-          setSubject={setSubject}
-        />
-      </div>
+          ))}
+        </tbody>
+      </Table>
+      <StudentModal
+        show={show}
+        setShow={setShow}
+        id={id}
+        setId={setId}
+        subject={subject}
+        setSubject={setSubject}
+      />
     </div>
+    
   );
 };
 

@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import background from "./assets/img/background.jpg";
 import LandingPage from "./components/LandingPage/LandingPage";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
@@ -21,16 +20,7 @@ function App() {
   return (
     <Router>
       <UserProvider>
-        <div
-          style={{
-            height: "100vh",
-            backgroundImage: `url(${background})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            overflow: "scroll",
-          }}
-        >
+        
           <NavbarComponent />
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -102,7 +92,6 @@ function App() {
               }
             />
           </Routes>
-        </div>
       </UserProvider>
     </Router>
   );
