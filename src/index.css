@@ -6,12 +6,11 @@ body {
   font-family: "Roboto Condensed", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: "100vh";
+  min-height: 100vh;
   background-image: url("./assets/img/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow: scroll;
 }
 
 code {
@@ -47,3 +46,5 @@ code {
 .principal-login {
   height: 90vh;
 }
+
+

@@ -6,9 +6,12 @@ import { UserContext } from "../context/UserContext";
 const PrivateRouteAdmin = ({ children }) => {
   const { user, authenticated, getAuth, loading } = useContext(UserContext);
   const [flag, setFlag] = useState(false);
+  const userLog = localStorage.getItem("token");
 
   useEffect(() => {
-    getAuth();
+    if (userLog) {
+      getAuth();
+    }
     setFlag(true);
   }, []);
 

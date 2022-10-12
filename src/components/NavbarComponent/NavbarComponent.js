@@ -8,17 +8,18 @@ import { BarsOutlined, HomeOutlined } from "@ant-design/icons";
 
 const NavbarComponent = () => {
   const [flag, setFlag] = useState(false);
-  const { logout } = useContext(UserContext);
+  const [userLog, setUserLog] = useState(null);
   const { pathname } = useLocation();
   const { width } = useMediaQuery();
-  const { user, getAuth, loading } = useContext(UserContext);
-  console.log(user);
-  // const user = localStorage.getItem("token");
+  const { user, getAuth, loading, logout } = useContext(UserContext);
 
   useEffect(() => {
-    getAuth();
-    setFlag(true);
-  }, []);
+    setUserLog(localStorage.getItem("token"));
+    if (userLog) {
+      getAuth();
+      setFlag(true);
+    }
+  }, [userLog]);
 
   return width < 995 ? (
     <Navbar className="headerNav" bg="light" variant="light" expand="lg">
@@ -48,19 +49,12 @@ const NavbarComponent = () => {
             <div className="d-flex flex-column justify-content-center align-items-end">
               {user ? (
                 <>
-                  {flag ? (
-                    user.role === "ADMIN" ? (
-                      <div className="box-3 mb-2">
-                        <Link
-                          to="/admin"
-                          className="btn btn-three custom-button"
-                        >
-                          Admin
-                        </Link>
-                      </div>
-                    ) : (
-                      ""
-                    )
+                  {user.role === "ADMIN" ? (
+                    <div className="box-3 mb-2">
+                      <Link to="/admin" className="btn btn-three custom-button">
+                        Admin
+                      </Link>
+                    </div>
                   ) : (
                     ""
                   )}
@@ -122,16 +116,12 @@ const NavbarComponent = () => {
         <div>
           {user ? (
             <Nav className="me-auto">
-              {flag ? (
-                user.role === "ADMIN" ? (
-                  <div className="box-3">
-                    <Link to="/admin" className="btn btn-three custom-button">
-                      Admin
-                    </Link>
-                  </div>
-                ) : (
-                  ""
-                )
+              {user.role === "ADMIN" ? (
+                <div className="box-3">
+                  <Link to="/admin" className="btn btn-three custom-button">
+                    Admin
+                  </Link>
+                </div>
               ) : (
                 ""
               )}

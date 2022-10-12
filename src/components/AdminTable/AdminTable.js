@@ -32,14 +32,28 @@ const AdminTable = () => {
     }
   };
 
+  const deleteUser = async (id) => {
+    try {
+      if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
+        await axiosConfig.delete(`/users/${id}`);
+      }
+      getUser();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   useEffect(() => {
     getUser();
   }, []);
   return (
     <>
-      <Button className="button" variant="primary" onClick={handleShow}>
+    <div className="d-flex justify-content-end">
+
+      <Button className="btn btn-success shadow my-3 w-auto" variant="primary" onClick={handleShow}>
         Registrar usuario
       </Button>
+    </div>
       <Table className="admin-table" responsive striped bordered hover>
         <thead>
           <tr className="text-center">
@@ -65,11 +79,17 @@ const AdminTable = () => {
               <td>{user.state ? "Habilitado" : "Deshabilitado"}</td>
               <td className="">
                 <div className="d-flex align-items-start justify-content-center">
-                  <Button className="button w-50 me-2 mt-0">
-                    <BiEditAlt onClick={() => handleShowEdit(user._id)} />
+                  <Button
+                    onClick={() => handleShowEdit(user._id)}
+                    className="button w-50 me-2 mt-0"
+                  >
+                    <BiEditAlt />
                     editar
                   </Button>
-                  <Button className="button w-50 mt-0">
+                  <Button
+                    onClick={() => deleteUser(user._id)}
+                    className="button w-50 mt-0"
+                  >
                     <AiFillDelete />
                     eliminar
                   </Button>
