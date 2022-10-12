@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'react-bootstrap'
+import './UserIsAcepted.css'
+import { Spinner, Table } from 'react-bootstrap'
 import axiosConfig from '../../config/axiosConfig'
 
 const UsersIsAcepted = () => {
@@ -10,11 +11,11 @@ const UsersIsAcepted = () => {
     try {
       const users = await axiosConfig.get('/users/isacepted')
       setUserIsAcepted(users.data.users);
-      console.log(users.data.users);
     } catch (error) {
       alert('Erros al traer los usuarios')
     }
   }
+      
   useEffect(() => {
     getUsersIsAcepted()
   }, [])
@@ -22,22 +23,25 @@ const UsersIsAcepted = () => {
    const handleClick = async (id, p, s) => {
     try {
       setCheckedState(s)
-      const userU = await axiosConfig.put(`/users/${id}`, {state: !checkedState , password: p})
-      console.log(userU);
-       getUsersIsAcepted()
+      await axiosConfig.put(`/users/${id}`, {state: !checkedState , password: p})
+      getUsersIsAcepted()
     } catch (error) {
       console.log(error);
     }
   }
+     
+    
+  
+      
 
   return (
-    <div>
+    <div className='table_userIsAcepted'>
       <Table responsive striped bordered hover>
         <thead>
           <tr>
-            <th>Usuario</th>
-            <th>Email</th>
-            <th>Aceptar</th>
+            <th>USUARIO</th>
+            <th>EMAIL</th>
+            <th>HABILITADO</th>
           </tr>
         </thead>
         <tbody>
@@ -46,12 +50,15 @@ const UsersIsAcepted = () => {
               return <tr key={index}>
                       <td>{user.name}</td> 
                       <td>{user.email}</td>
-                      <td><input type='checkbox' onChange={() => handleClick(user._id, user.password, user.state)} checked={user.state? true: false}/></td>
+                      <td className='text-center'>
+                        <input type='checkbox' onClick={() => handleClick(user._id, user.password, user.state)} checked={user.state? true: false}/>
+                      </td>
                      </tr>
             })
           } 
         </tbody>
       </Table>
+      {userIsAcepted.length === 0 && <div className='d-flex justify-content-center'><Spinner animation="border"/></div>}
     </div>
   )
 }

@@ -8,6 +8,7 @@ import { HiDocumentAdd } from 'react-icons/hi'
 import AddModalSubject from '../AddModalsubject/AddModalSubject'
 import EditModalSubjects from '../EditModalSubjects/EditModalSubjects'
 import './SubjectTable.css'
+import StudentsInSubjectsModal from '../studentsInSubjectsModal/StudentsInSubjectsModal'
 
 const SubjectTable = () => {
   const [subjectsData, setSubjectsData] = useState([])
@@ -18,7 +19,10 @@ const SubjectTable = () => {
   const [totalSubjects, setTotalSubjects] = useState(0)
   const [editSelected, setEditSelected] = useState(null)
   const [editting, setEditting] = useState(false)
+  const [gettingSubject, setGettingSubject] = useState(false)
+  const [selectedSubject, setSelectedSubject] = useState(null)
   
+  const [showSubjectAlumns, setShowSubjectAlumns] = useState(false)
 
   const handleCloseAddSubject = () => setshowAddSubject(false);
   const handleShowAddSubject = () => setshowAddSubject(true);
@@ -26,10 +30,14 @@ const SubjectTable = () => {
   const handleCloseEditSubject = () => setShowEditSubject(false);
   const handleShowEditSubject = () => setShowEditSubject(true);
 
+  const handleCloseSubjectAlumns = () => setShowSubjectAlumns(false);
+  const handleShowSubjectAlumns = () => setShowSubjectAlumns(true);
+
   const getSubjects = async () => {
       try {
         const res = await axiosConfig.get(`/subjects?page=${page}&limit=10`)
         setSubjectsData(res.data.subjects);
+        console.log(res.data.subjects);
         setTotalSubjects(res.data.total)
         setIsLoading(false)
       } catch (error) {
@@ -57,11 +65,16 @@ const SubjectTable = () => {
     handleShowEditSubject()
     setEditting(true)
   }
-
-   
-   let items = []
+ 
+  let items = []
    for (let number= 1; number <= Math.ceil(totalSubjects / 10); number++) {
      items.push(<Pagination.Item key={number} onClick={() => setPage(number)} active={number === page}>{number}</Pagination.Item> )
+   }
+   
+   const selectedS = (id) => {
+    setSelectedSubject(id)
+    handleShowSubjectAlumns()
+    setGettingSubject(true)
    }
   return (
     <>
@@ -83,7 +96,7 @@ const SubjectTable = () => {
             subjectsData?.map((sub, index) =>  {
               return <tr key={index}>
                       <td>{index + 1}</td> 
-                      <td>{sub.name}</td>
+                      <td><span onClick={() => selectedS(sub._id)}>{sub.name}</span></td>
                       <td className='text-center'>
                         <Button variant='warning mx-2' onClick={() => editSubject(sub._id)}><AiFillEdit/></Button>
                         <Button variant='danger' onClick={() => deleteSubject(sub._id)}><BsFillTrashFill/></Button>
@@ -106,6 +119,14 @@ const SubjectTable = () => {
       editSelected={editSelected} 
       handleCloseEditSubject={handleCloseEditSubject} 
       showEditSubject={showEditSubject}/>
+
+      <StudentsInSubjectsModal
+      handleCloseSubjectAlumns={handleCloseSubjectAlumns}
+      showSubjectAlumns={showSubjectAlumns}
+      selectedSubject={selectedSubject}
+      gettingSubject={gettingSubject}
+      
+      />
     </>
   )
 }
