@@ -73,3 +73,33 @@ export const validationLogin = (values) => {
   }
   return errors;
 };
+
+export const validationAddAl = (values) => {
+  let errors = {};
+  if (!values.nameCompleted) {
+    errors.nameCompleted = "El nombre del alumno es obligatorio";
+  } else if (values.nameCompleted.length > 30) {
+    errors.nameCompleted = "El nombre no debe poseer más de 30 caracteres";
+  }
+
+  if (!values.curse) {
+    errors.curse = "El curso es obligatorio";
+  } else if (values.curse.length < 3) {
+    errors.curse = "Inserte el curso en el que se encuentra el alumno seguido por la palabra año";
+  }
+
+  if (!values.phone) {
+    errors.curse = "El telefono de contacto del alumno es obligatorio";
+  } else if (values.curse.length < 10) {
+    errors.curse = "El numero debe contener al menos 10 caracteres";
+  }
+
+  if (!values.adress) {
+    errors.adress = "El nombre del alumno es obligatorio";
+  } else if (values.adress.length > 30) {
+    errors.adress = "La direccion no debe poseer más de 30 caracteres";
+  }
+
+  
+  return errors;
+};
