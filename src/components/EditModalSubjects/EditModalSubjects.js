@@ -31,7 +31,6 @@ const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showE
    useEffect(() => {
     if (editting) {
       getSubject()
-     
     }
   }, [editSelected])
       

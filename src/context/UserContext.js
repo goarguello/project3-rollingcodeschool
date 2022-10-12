@@ -54,6 +54,7 @@ const UserProvider = ({ children }) => {
       setAuthenticated(false);
       setUser(null);
       setToken(null);
+      setLoading(false)
       if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
       }
@@ -65,9 +66,11 @@ const UserProvider = ({ children }) => {
     setAuthenticated(false);
     setUser(null);
     setToken(null);
+    setLoading(false)
     if (localStorage.getItem("token")) {
       localStorage.removeItem("token");
     }
+    navigate("/");
   };
 
   const register = async (values) => {
