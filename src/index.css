@@ -1,10 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 
+
 body {
   margin: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: "100vh";
+  background-image: url("./assets/img/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: scroll;
 }
 
 code {
@@ -23,20 +30,20 @@ code {
   background-color: white;
 }
 
-.main-normal-students{
+.main-normal-students {
   min-height: 92vh;
   height: auto;
   margin-top: 5px;
   background-color: white;
 }
 
-.main-normal-subjects{
+.main-normal-subjects {
   min-height: 90vh;
   height: auto;
   margin-top: 5px;
   background-color: white;
 }
 
-.principal-login{
+.principal-login {
   height: 90vh;
 }

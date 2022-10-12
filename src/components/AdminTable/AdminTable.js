@@ -32,8 +32,6 @@ const AdminTable = () => {
     }
   };
 
-
-
   useEffect(() => {
     getUser();
   }, []);
@@ -42,12 +40,9 @@ const AdminTable = () => {
       <Button className="button" variant="primary" onClick={handleShow}>
         Registrar usuario
       </Button>
-      <Button className="button" variant="primary" onClick={handleShowEdit}>
-        Modificar usuario
-      </Button>
-      <Table responsive striped bordered hover>
+      <Table className="admin-table" responsive striped bordered hover>
         <thead>
-          <tr>
+          <tr className="text-center">
             <th>ID</th>
             <th>Nombre completo</th>
             <th>Correo electrónico</th>
@@ -55,7 +50,7 @@ const AdminTable = () => {
             <th>Dirección</th>
             <th>Curso a cargo</th>
             <th>¿Usuario habilitado?</th>
-            <th>aciones</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -68,16 +63,17 @@ const AdminTable = () => {
               <td>{user.adress}</td>
               <td>{user.courseInCharge}</td>
               <td>{user.state ? "Habilitado" : "Deshabilitado"}</td>
-              <td className="text-center">
-                <button variant="primary" className="me-2">
-                  <BiEditAlt
-                    onClick={() => handleShowEdit(user._id)}
-                    className="fs-3"
-                  />
-                </button>
-                <button variant="warning">
-                  <AiFillDelete className="fs-3" />
-                </button>
+              <td className="">
+                <div className="d-flex align-items-start justify-content-center">
+                  <Button className="button w-50 me-2 mt-0">
+                    <BiEditAlt onClick={() => handleShowEdit(user._id)} />
+                    editar
+                  </Button>
+                  <Button className="button w-50 mt-0">
+                    <AiFillDelete />
+                    eliminar
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}

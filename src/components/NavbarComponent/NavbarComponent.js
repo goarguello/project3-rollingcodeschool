@@ -1,18 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import "./NavbarComponent.css";
-import  { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { BarsOutlined, HomeOutlined } from "@ant-design/icons";
 
 const NavbarComponent = () => {
+  const [flag, setFlag] = useState(false);
   const { logout } = useContext(UserContext);
   const { pathname } = useLocation();
   const { width } = useMediaQuery();
-  const { user } = useContext(UserContext);
-  // console.log(user);
-  const userLog = localStorage.getItem("token");
+  const { user, getAuth, loading } = useContext(UserContext);
+  console.log(user);
+  // const user = localStorage.getItem("token");
+
+  useEffect(() => {
+    getAuth();
+    setFlag(true);
+  }, []);
 
   return width < 995 ? (
     <Navbar className="headerNav" bg="light" variant="light" expand="lg">
@@ -40,13 +46,25 @@ const NavbarComponent = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <div className="d-flex flex-column justify-content-center align-items-end">
-              {userLog ? (
+              {user ? (
                 <>
-                  <div className="box-3 mb-2">
-                    <Link to="/admin" className="btn btn-three custom-button">
-                      Admin
-                    </Link>
-                  </div>
+                  {flag ? (
+                    user.role === "ADMIN" ? (
+                      <div className="box-3 mb-2">
+                        <Link
+                          to="/admin"
+                          className="btn btn-three custom-button"
+                        >
+                          Admin
+                        </Link>
+                      </div>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  )}
+
                   <div className="box-3-logout ">
                     <Link
                       onClick={logout}
@@ -102,15 +120,21 @@ const NavbarComponent = () => {
           )}
         </div>
         <div>
-          {userLog ? (
+          {user ? (
             <Nav className="me-auto">
-              {/* <Link to="/login" className='text-beige nav-link'>Ingresar</Link> */}
-
-              <div className="box-3 mx-3">
-                <Link to="/admin" className="btn btn-three custom-button">
-                  Admin
-                </Link>
-              </div>
+              {flag ? (
+                user.role === "ADMIN" ? (
+                  <div className="box-3">
+                    <Link to="/admin" className="btn btn-three custom-button">
+                      Admin
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
               <div className="box-3-logout mx-3">
                 <Link onClick={logout} className="btn btn-three custom-button">
                   Cerrar sesión
