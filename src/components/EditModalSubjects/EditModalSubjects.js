@@ -11,6 +11,9 @@ const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showE
   const handleEditSubject = async (e) => {
     e.preventDefault()
     try {
+      const validation = /^[\s\S]{0,20}$/
+      if(!validation.test(value.name)) return alert('Maximo 20 caracteres')
+      if(!value.name) return alert('Campo Materia requerido')
       await axiosConfig.put(`/subjects/${editSelected}`, value)
       handleCloseEditSubject()
       getSubjects()
@@ -42,7 +45,7 @@ const EditModalSubjects = ({editting, getSubjects, handleCloseEditSubject, showE
     <Modal.Body>
       <Form onSubmit={handleEditSubject}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-           <Form.Control value={value.name} onChange={(e) => setValue({name: e.target.value})} type="text" placeholder="introduce la Modicacion" />
+           <Form.Control value={value.name} pattern="^[\s\S]{0,20}$" className='campo-materia' onChange={(e) => setValue({name: e.target.value})} type="text" placeholder="introduce la Modicacion" />
         </Form.Group>
           <div className='d-flex justify-content-end'>
           <Button variant="primary" type="submit">

@@ -1,0 +1,9 @@
+.campo-materia {
+  border-color: green;
+  outline: greenyellow;
+}
+
+.campo-materia:invalid {
+  border-color: brown;
+  outline: red;
+}

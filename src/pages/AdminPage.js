@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import CardComponent from "../components/CardComponent/CardComponent";
 
 const AdminPage = () => {
