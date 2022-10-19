@@ -6,14 +6,18 @@ import { BiEditAlt } from "react-icons/bi";
 import "./AdminTable.css";
 import AddModalUsers from "../AddModalUsers/AddModalUsers";
 import EditUserModal from "../EditUserModal/EditUserModal";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const AdminTable = () => {
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [selected, setSelected] = useState(null);
   const [users, setUsers] = useState([]);
+  const { user } = useContext(UserContext)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const handleCloseEdit = () => {
     setSelected(null);
     setShowEdit(false);
@@ -32,8 +36,10 @@ const AdminTable = () => {
     }
   };
 
+  
   const deleteUser = async (id) => {
     try {
+      if(user._id === id) return alert('No puedes Eliminarte a ti mismo')
       if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
         await axiosConfig.delete(`/users/${id}`);
       }
