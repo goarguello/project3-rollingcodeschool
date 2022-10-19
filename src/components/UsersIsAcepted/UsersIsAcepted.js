@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./UserIsAcepted.css";
 import { Spinner, Table } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
+import { UserContext } from "../../context/UserContext";
 
 const UsersIsAcepted = () => {
   const [userIsAcepted, setUserIsAcepted] = useState([]);
   const [checkedState, setCheckedState] = useState(null);
+  const { user } = useContext(UserContext)
 
   const getUsersIsAcepted = async () => {
     try {
@@ -23,6 +25,7 @@ const UsersIsAcepted = () => {
   const handleClick = async (id, p, s) => {
     try {
       setCheckedState(s);
+      if(user._id === id) return alert('No puedes Inhabilitar tu usuario')
       await axiosConfig.put(`/users/${id}`, {
         state: !checkedState,
         password: p,
