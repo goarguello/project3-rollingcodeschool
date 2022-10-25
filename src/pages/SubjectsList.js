@@ -21,7 +21,7 @@ const SubjectsList = () => {
   useEffect(() => {
     getSubjects();
   }, []);
-  console.log(subjects);
+
   return (
     <>
       <div className="container main-normal-subjects d-flex flex-wrap align-items-start justify-content-center pt-5">
@@ -71,7 +71,12 @@ const SubjectsList = () => {
           </ListGroup>
         )}
       </div>
-      <ViewSubjectModal show={show} setShow={setShow} subjectId={id} setId={setId} />
+      <ViewSubjectModal
+        show={show}
+        setShow={setShow}
+        subjectId={id}
+        setId={setId}
+      />
     </>
   );
 };

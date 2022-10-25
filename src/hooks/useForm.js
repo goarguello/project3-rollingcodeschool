@@ -7,7 +7,7 @@ const useForm = (initialValues, submit, validations, id, p) => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
-  console.log(values);
+  // console.log(values);
   useEffect(() => {
     if (submitting) {
       if (Object.keys(errors).length === 0) {

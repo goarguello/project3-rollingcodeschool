@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Modal, Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { Next } from "react-bootstrap/esm/PageItem";
-import axiosConfig from "../../config/axiosConfig";
 import { SubjectContext } from "../../context/SubjectContext";
 import { validationSubject } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
-const EditSubjectForm = ({ userId, handleClose }) => {
-  const [flag, setFlag] = useState(true);
-  const { value, getSubject, handleEditSubject } = useContext(SubjectContext);
+const EditSubjectForm = ({ userId, handleClose, value }) => {
+  const { handleEditSubject, setFlag, setValue } = useContext(SubjectContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     value,
@@ -17,36 +15,34 @@ const EditSubjectForm = ({ userId, handleClose }) => {
     value._id
   );
 
-  useEffect(() => {
-    getSubject(userId);
-  }, []);
-
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control
-          value={values.name}
-          name="name"
-          className="campo-materia"
-          onChange={handleChange}
           type="text"
+          name="name"
+          onChange={handleChange}
+          value={values.name}
+          className="campo-materia"
           placeholder="Intrucce la modificación."
-          // minLength={3}
-          // maxLength={20}
-          // required
+          minLength={3}
+          maxLength={20}
+          required
         />
       </Form.Group>
       <div className="d-flex justify-content-end">
-        <Button className="button w-50  mt-0" variant="primary" type="submit">
+        <Button className="button w-50  mt-0" type="submit">
           Modificar
         </Button>
       </div>
       <div className="d-flex justify-content-end">
         <Button
           className="button w-50  mt-3"
-          variant="primary"
-          type="submit"
-          onClick={handleClose}
+          onClick={() => {
+            setFlag(false);
+            setValue({})
+            handleClose();
+          }}
         >
           Cerrar
         </Button>

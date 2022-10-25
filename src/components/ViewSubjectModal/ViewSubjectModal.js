@@ -9,15 +9,13 @@ function ViewSubjectModal({ show, setShow, subjectId, setId }) {
     setId(null);
     setShow(false);
   };
-  const { getSubject, value } = useContext(SubjectContext);
+  const { getSubject, value, flag } = useContext(SubjectContext);
 
   useEffect(() => {
     if (subjectId) {
       getSubject(subjectId);
     }
   }, [subjectId]);
-  console.log("Subject", value);
-
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -25,15 +23,28 @@ function ViewSubjectModal({ show, setShow, subjectId, setId }) {
       </Modal.Header>
       <Modal.Body>
         <ListGroup as="ul" numbered>
-          {value.students?.map((student, i) => (
-            <ListGroup.Item key={i} as="li">
-              {student.nameCompleted}
-            </ListGroup.Item>
-          ))}
+          {flag ? (
+            value.students.length > 0 ? (
+              value.students.map((student, i) => (
+                <ListGroup.Item key={i} as="li">
+                  {student.nameCompleted}
+                </ListGroup.Item>
+              ))
+            ) : (
+              <p>No hay alumnos.</p>
+            )
+          ) : (
+            <p>Cargando...</p>
+          )}
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="button mt-0" onClick={handleClose}>
+        <Button
+          className="button mt-0"
+          onClick={() => {
+            handleClose();
+          }}
+        >
           Cerrar
         </Button>
       </Modal.Footer>

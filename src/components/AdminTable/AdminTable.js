@@ -33,8 +33,7 @@ const AdminTable = () => {
     <>
       <div className="d-flex justify-content-end">
         <Button
-          className="btn btn-success shadow my-3 w-auto"
-          variant="primary"
+          className="btn btn-success shadow my-2 w-auto"
           onClick={handleShow}
         >
           Registrar usuario

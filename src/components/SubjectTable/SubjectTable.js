@@ -86,8 +86,8 @@ const SubjectTable = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between me-3 my-3">
-        <Pagination>{items}</Pagination>
+      <div className="d-flex justify-content-between   my-3">
+        <Pagination className="my-auto">{items}</Pagination>
 
         <button
           onClick={handleShowAddSubject}
@@ -150,7 +150,7 @@ const SubjectTable = () => {
       />
 
       <EditModalSubjects
-        userId={editSelected}
+        subjectId={editSelected}
         handleClose={handleCloseEditSubject}
         show={showEditSubject}
       />
