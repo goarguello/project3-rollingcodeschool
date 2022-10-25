@@ -45,7 +45,6 @@ const StudentsInSubjectsModal = ({
 
   const addAlumnToSubject = async () => {    
     try {
-      console.log(arrayAlumns)
       if (!arrayAlumns.some((alumn) => (alumn._id == selectedAlumn))) {
         await axiosConfig.put("/subjects/student", {
           id: selectedAlumn,
@@ -61,8 +60,6 @@ const StudentsInSubjectsModal = ({
   };
 
   const deleteAlumn = async (id) => {
-    console.log("ID", id);
-    console.log("slectedSubjectID", selectedSubject);
     try {
       await axiosConfig.put("/subjects/student-delete", {
         id,

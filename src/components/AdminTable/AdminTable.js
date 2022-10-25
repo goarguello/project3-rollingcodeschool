@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Alert } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
 import { AiFillDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
@@ -13,7 +13,7 @@ const AdminTable = () => {
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [selected, setSelected] = useState(null);
-  const { user, users, getUsers, deleteUser } = useContext(UserContext);
+  const { user, users, getUsers, deleteUser, error, setError } = useContext(UserContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -28,7 +28,12 @@ const AdminTable = () => {
 
   useEffect(() => {
     getUsers();
-  }, []);
+    if (Object.keys(error).length != 0) {
+      setTimeout(() => {
+        setError({});
+      }, 3000);
+    }
+  }, [error]);
   return (
     <>
       <div className="d-flex justify-content-end">
@@ -39,6 +44,18 @@ const AdminTable = () => {
           Registrar usuario
         </Button>
       </div>
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((err, i) => (
+            <div
+              key={i}
+              className="d-flex justify-content-center align-items-center"
+            >
+              <Alert variant="danger" className="mt-3 mb-0">
+                {err}
+              </Alert>
+            </div>
+          ))
+        : null}
       <Table className="admin-table" responsive striped bordered hover>
         <thead>
           <tr className="text-center">
@@ -90,6 +107,7 @@ const AdminTable = () => {
           ))}
         </tbody>
       </Table>
+
       <AddModalUsers
         getUsers={getUsers}
         show={show}

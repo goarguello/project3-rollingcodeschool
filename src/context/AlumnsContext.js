@@ -32,7 +32,6 @@ const AlumnsProvider = ({ children }) => {
   const handleAdd = async (values) => {
     try {
       const response = await axiosConfig.post("/alumns", values);
-      console.log(response);
       getStudents();
     } catch (error) {
       alert("Error al cargar un nuevo alumno");
@@ -43,7 +42,6 @@ const AlumnsProvider = ({ children }) => {
   const handleEdit = async (values, id) => {
     try {
       const response = await axiosConfig.put("/alumns/" + id, values);
-      console.log(response);
       getStudents();
     } catch (error) {
       alert("Error al editar un alumno");

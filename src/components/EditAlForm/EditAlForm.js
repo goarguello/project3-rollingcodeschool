@@ -16,11 +16,6 @@ const EditAlForm = ({ handleClose, value }) => {
     value._id
   );
 
-  // useEffect(() => {
-  //   getStudent(selected);
-  // }, []);
-
-  console.log(values.curse);
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">

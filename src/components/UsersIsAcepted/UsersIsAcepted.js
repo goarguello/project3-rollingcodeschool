@@ -1,43 +1,64 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./UserIsAcepted.css";
-import { Spinner, Table } from "react-bootstrap";
+import { Alert, Spinner, Table } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
 import { UserContext } from "../../context/UserContext";
 
 const UsersIsAcepted = () => {
   const [userIsAcepted, setUserIsAcepted] = useState([]);
   const [checkedState, setCheckedState] = useState(null);
-  const { user } = useContext(UserContext)
+  const [error, setError] = useState({});
+  const { user } = useContext(UserContext);
 
   const getUsersIsAcepted = async () => {
     try {
       const users = await axiosConfig.get("/users/isacepted");
       setUserIsAcepted(users.data.users);
     } catch (error) {
-      alert("Erros al traer los usuarios");
+      alert("Error al traer los usuarios");
     }
   };
-
-  useEffect(() => {
-    getUsersIsAcepted();
-  }, []);
 
   const handleClick = async (id, p, s) => {
     try {
       setCheckedState(s);
-      if(user._id === id) return alert('No puedes Inhabilitar tu usuario')
-      await axiosConfig.put(`/users/${id}`, {
-        state: !checkedState,
-        password: p,
-      });
-      getUsersIsAcepted();
+      if (user._id === id) {
+        setError({ message: "No puedes inhabilitar tu usuario" });
+      } else {
+        await axiosConfig.put(`/users/${id}`, {
+          state: !checkedState,
+          password: p,
+        });
+        getUsersIsAcepted();
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    getUsersIsAcepted();
+    if (Object.keys(error).length != 0) {
+      setTimeout(() => {
+        setError({});
+      }, 3000);
+    }
+  }, [error]);
+
   return (
     <div>
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((err, i) => (
+            <div
+              key={i}
+              className="d-flex justify-content-center align-items-center"
+            >
+              <Alert variant="danger" className="mt-3 mb-0">
+                {err}
+              </Alert>
+            </div>
+          ))
+        : null}
       <Table className="table_userIsAcepted" responsive striped bordered hover>
         <thead>
           <tr>
@@ -50,13 +71,13 @@ const UsersIsAcepted = () => {
           {userIsAcepted?.map((user, index) => {
             return (
               <tr key={index}>
-                {console.log(user.password)}
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td className="text-center">
                   <input
                     type="checkbox"
-                    onClick={() =>
+                    // onChange={(e)=> handleChange(e,user._id, user.password, user.state)}
+                    onChange={() =>
                       handleClick(user._id, user.password, user.state)
                     }
                     checked={user.state ? true : false}
@@ -67,6 +88,7 @@ const UsersIsAcepted = () => {
           })}
         </tbody>
       </Table>
+
       {userIsAcepted.length === 0 && (
         <div className="d-flex justify-content-center">
           <Spinner animation="border" />

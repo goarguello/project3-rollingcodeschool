@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from "react";
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import { SubjectContext } from "../../context/SubjectContext";
 import EditSubjectForm from "../EditSubjectForm/EditSubjectForm";
 
 const EditModalSubjects = ({ handleClose, show, subjectId }) => {
-  const { getSubject, value, flag } = useContext(SubjectContext);
+  const { getSubject, value, flag, setFlag } = useContext(SubjectContext);
 
   useEffect(() => {
     if (subjectId) {
       getSubject(subjectId);
     }
+    setFlag(false)
   }, [subjectId]);
 
   return (
@@ -26,7 +27,7 @@ const EditModalSubjects = ({ handleClose, show, subjectId }) => {
             value={value}
           />
         ) : (
-          "Cargando..."
+          <Spinner animation="border" />
         )}
       </Modal.Body>
     </Modal>

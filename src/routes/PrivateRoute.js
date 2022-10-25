@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
+import { Spinner } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
@@ -16,11 +17,9 @@ const PrivateRoute = ({ children }) => {
 
   }, []);
 
-  // console.log(authenticated);
+  if (loading) return <Spinner animation="border" />;
 
-  if (loading) return "Cargando...";
-
-  return flag ? authenticated ? children : <Navigate to="/" /> : "Cargando...";
+  return flag ? authenticated ? children : <Navigate to="/" /> : <Spinner animation="border" />;
 };
 
 export default PrivateRoute;
