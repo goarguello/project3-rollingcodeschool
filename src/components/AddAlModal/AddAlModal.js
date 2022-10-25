@@ -10,7 +10,7 @@ const AddAlModal = ({showAdd, handleCloseAdd, getStudents}) => {
           <Modal.Title>Agregar un alumno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <AddAlForm getStudents={getStudents} handleCloseAdd={handleCloseAdd} />
+            <AddAlForm getStudents={getStudents} handleClose={handleCloseAdd} />
         </Modal.Body>
       </Modal>
     </>

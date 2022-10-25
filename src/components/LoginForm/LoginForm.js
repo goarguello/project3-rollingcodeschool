@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Alert, Form } from "react-bootstrap";
 import {
   MDBBtn,
@@ -18,7 +18,7 @@ import { validationLogin } from "../../helpers/validations";
 import { UserContext } from "../../context/UserContext";
 
 const LoginForm = () => {
-  const { login, authenticated } = useContext(UserContext);
+  const { login, error, setError, flag, setFlag } = useContext(UserContext);
   const navigate = useNavigate();
 
   const { values, handleChange, handleSubmit, errors } = useForm(
@@ -27,11 +27,22 @@ const LoginForm = () => {
     validationLogin
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      setError({});
+    }, 5000);
+  }, [flag]);
+
   return (
     <MDBContainer fluid className="box-login">
       <MDBRow className="d-flex justify-content-center align-items-center h-100">
         <MDBCol col="12">
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={(e) => {
+              handleSubmit(e);
+              setFlag(!flag);
+            }}
+          >
             <MDBCard
               className=" text-white my-5 mx-auto"
               style={{
@@ -86,6 +97,14 @@ const LoginForm = () => {
                 >
                   Entrar
                 </MDBBtn>
+
+                {Object.keys(error).length != 0
+                  ? Object.values(error).map((error, i) => (
+                      <Alert key={i} variant="danger">
+                        {error}
+                      </Alert>
+                    ))
+                  : null}
 
                 <div>
                   <p className="mb-0">

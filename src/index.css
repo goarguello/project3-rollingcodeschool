@@ -40,7 +40,7 @@ code {
   min-height: 90vh;
   height: auto;
   margin-top: 5px;
-  background-color: white;
+  background-color: transparent;
 }
 
 .principal-login {
