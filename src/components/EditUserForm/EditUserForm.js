@@ -1,50 +1,32 @@
-import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { useContext, useEffect, useState } from "react";
+import { Alert, Button, Form } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
+import { COURSES_VALUES, REGISTER_INITIAL_VALUES } from "../../constants";
+import { UserContext } from "../../context/UserContext";
+import { validationRegister } from "../../helpers/validations";
+import useForm from "../../hooks/useForm";
 
-const EditUserForm = ({ user, handleClose, getUser }) => {
-  const [values, setValues] = useState({});
+const EditUserForm = ({ user, handleClose, getUsers }) => {
+  const [arrCourses, setArrCourses] = useState([]);
 
-  const handleSubmit = async (e, id, p) => {
-    e.preventDefault();
-    try {
-      await axiosConfig.put(`/users/${id}`, {
-        adress: values.adress,
-        courseInCharge: values.courseInCharge,
-        email: values.email,
-        name: values.name,
-        phone: values.phone,
-        password: p,
-      });
-      //   if (userNew.status === 201) {
-      //     window.alert(userNew.data.message);
+  const { editUser, getSingleUser, value } = useContext(UserContext);
 
-      getUser();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { values, handleChange, handleSubmit, errors } = useForm(
+    value,
+    editUser,
+    validationRegister,
+    value._id,
+    value.password
+  );
 
-  const getSingleUser = async (id) => {
-    try {
-      const response = await axiosConfig.get(`/users/${id}`);
-      setValues(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
 
   useEffect(() => {
     getSingleUser(user);
   }, []);
 
-  console.log(values);
   return (
-    <Form onSubmit={(e) => handleSubmit(e, values._id, values.password)}>
+    <Form onSubmit={(e) => handleSubmit(e, value._id, value.password)}>
       <Form.Group className="mb-3">
         <Form.Label>Nombre completo</Form.Label>
         <Form.Control
@@ -52,6 +34,9 @@ const EditUserForm = ({ user, handleClose, getUser }) => {
           name="name"
           onChange={handleChange}
           value={values.name}
+          minLength={3}
+          maxLength={25}
+          required
         />
       </Form.Group>
 
@@ -62,6 +47,9 @@ const EditUserForm = ({ user, handleClose, getUser }) => {
           name="email"
           onChange={handleChange}
           value={values.email}
+          minLength={1}
+          maxLength={50}
+          required
         />
       </Form.Group>
 
@@ -72,6 +60,8 @@ const EditUserForm = ({ user, handleClose, getUser }) => {
           name="phone"
           onChange={handleChange}
           value={values.phone}
+          maxLength={10}
+          required
         />
       </Form.Group>
 
@@ -82,55 +72,61 @@ const EditUserForm = ({ user, handleClose, getUser }) => {
           name="adress"
           onChange={handleChange}
           value={values.adress}
+          minLength={5}
+          maxLength={25}
+          required
         />
       </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label>Curso a cargo</Form.Label>
-        <Form.Control
-          type="text"
-          name="courseInCharge"
-          onChange={handleChange}
-          value={values.courseInCharge}
-        />
+
+        {COURSES_VALUES?.map((course, i) => {
+          if (values.courseInCharge?.includes(course)) {
+            return (
+              <div key={i}>
+                <Form.Check
+                  type="checkbox"
+                  name="courseInCharge"
+                  checked={true}
+                  onChange={handleChange}
+                  value={course}
+                  label={course}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div key={i}>
+                <Form.Check
+                  type="checkbox"
+                  name="courseInCharge"
+                  checked={false}
+                  onChange={handleChange}
+                  value={course}
+                  label={course}
+                />
+              </div>
+            );
+          }
+        })}
       </Form.Group>
-
-      {/* <Form.Group className="mb-3">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={values.password}
-          />
-        </Form.Group> */}
-
-      {/* <Form.Group className="mb-3">
-          <Form.Label>Repita la contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            name="password2"
-            onChange={handleChange}
-            value={values.password2}
-          />
-        </Form.Group> */}
 
       <Button
         className="btn-alumns"
         variant="primary"
         type="submit"
-        onClick={handleClose}
+        // onClick={handleClose}
       >
-        Agregar
+        Modificar
       </Button>
-      {/* {Object.keys(errors).length!=0?
-        Object.values(errors).map(error=>
-          <Alert variant="danger">
-            {error}
-          </Alert>
-          )
-        :null
-      } */}
+      {Object.keys(errors).length != 0
+        ? Object.values(errors).map((error) => (
+            <Alert className="mt-3 mb-0" variant="danger">
+              {error}
+            </Alert>
+          ))
+        : null}
     </Form>
   );
 };

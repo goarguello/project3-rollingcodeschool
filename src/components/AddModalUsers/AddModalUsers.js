@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import AddUserForm from "../AddUserForm/AddUserForm";
 
-function AddModalUsers({ show, handleClose, getUser }) {
+function AddModalUsers({ show, handleClose, getUsers }) {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -10,7 +10,7 @@ function AddModalUsers({ show, handleClose, getUser }) {
           <Modal.Title>Agregar un usuario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddUserForm handleClose={handleClose} getUser={getUser} />
+          <AddUserForm handleClose={handleClose} getUsers={getUsers} />
         </Modal.Body>
       </Modal>
     </>

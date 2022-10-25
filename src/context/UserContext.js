@@ -5,10 +5,15 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
+  const [flag, setFlag] = useState(false);
   const [user, setUser] = useState(null);
+  const [users, setUsers] = useState([]);
   const [token, setToken] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [successRegister, setSuccessRegister] = useState({});
+  const [error, setError] = useState({});
+  const [value, setValues] = useState({});
   const navigate = useNavigate();
 
   const login = async (values) => {
@@ -23,14 +28,14 @@ const UserProvider = ({ children }) => {
       localStorage.setItem("token", data.token);
       navigate("/home");
     } catch (error) {
-      console.log(error);
       if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
       }
       setUser(null);
       setToken(null);
       setAuthenticated(false);
-      alert(`Error en la conexión. Motivo: ` + error.response.data.message);
+      // console.log(error)
+      setError({ message: error.response.data.message });
     }
   };
 
@@ -45,20 +50,19 @@ const UserProvider = ({ children }) => {
       setLoading(true);
       const response = await axiosConfig.get("/users/auth");
       const data = response.data;
-      console.log(data);
       setUser(data);
       setAuthenticated(true);
       setLoading(false);
     } catch (error) {
-      console.log("HOLA TOY ACA")
       setAuthenticated(false);
       setUser(null);
       setToken(null);
-      setLoading(false)
+      setLoading(false);
       if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
       }
-      alert("Error. Motivo: Falla en la autenticación");
+      console.log("Error. Motivo: Falla en la autenticación");
+      navigate("/");
     }
   };
 
@@ -66,7 +70,7 @@ const UserProvider = ({ children }) => {
     setAuthenticated(false);
     setUser(null);
     setToken(null);
-    setLoading(false)
+    setLoading(false);
     if (localStorage.getItem("token")) {
       localStorage.removeItem("token");
     }
@@ -77,11 +81,62 @@ const UserProvider = ({ children }) => {
     try {
       const userNew = await axiosConfig.post("/users", values);
       if (userNew.status === 201) {
-        window.alert(userNew.data.message);
-        navigate("/");
+        setSuccessRegister({
+          message:
+            "Usuario creado, deberá ser habilitado por un Administrador para acceder.  \n Será redirigido al inicio.",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
       }
     } catch (error) {
       console.log(error);
+      setError({ message: error.response.data.errors[0].msg });
+    }
+  };
+  const getUsers = async () => {
+    try {
+      const response = await axiosConfig.get("/users/");
+      setUsers(response.data.users);
+    } catch (error) {
+      alert("No hay Usuarios");
+    }
+  };
+
+  const getSingleUser = async (id) => {
+    try {
+      const response = await axiosConfig.get(`/users/${id}`);
+      setValues(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editUser = async (val, id, p) => {
+    try {
+      const response = await axiosConfig.put(`/users/${id}`, {
+        adress: val.adress,
+        courseInCharge: val.courseInCharge,
+        email: val.email,
+        name: val.name,
+        phone: val.phone,
+        password: p,
+      });
+      getUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      if (user._id === id) return alert("No puedes Eliminarte a ti mismo");
+      if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
+        await axiosConfig.delete(`/users/${id}`);
+      }
+      getUsers();
+    } catch (error) {
+      alert(error.message);
     }
   };
 
@@ -89,6 +144,8 @@ const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
+        flag,
+        setFlag,
         user,
         setUser,
         login,
@@ -98,6 +155,16 @@ const UserProvider = ({ children }) => {
         logout,
         register,
         loading,
+        successRegister,
+        setSuccessRegister,
+        error,
+        setError,
+        editUser,
+        getSingleUser,
+        value,
+        getUsers,
+        users,
+        deleteUser
       }}
     >
       {children}

@@ -2,7 +2,6 @@ import { Modal } from 'react-bootstrap';
 import EditAlForm from '../EditAlForm/EditAlForm';
 
 const EditAlModal = ({showEdit, handleCloseEdit, getStudents, selected}) => {
-  console.log(showEdit);
   return (
     <>
       <Modal show={showEdit} onHide={handleCloseEdit} centered>

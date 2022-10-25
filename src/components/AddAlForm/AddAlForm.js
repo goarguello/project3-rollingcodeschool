@@ -1,71 +1,105 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
+import { ALUMNS_INITIAL_VALUES, COURSES_VALUES } from "../../constants";
+import { AlumnsContext } from "../../context/AlumnsContext";
 import { validationAddAl } from "../../helpers/validations";
+import useForm from "../../hooks/useForm";
 
-const AddAlForm = ({getStudents, handleCloseAdd}) => {
-    const [values, setValues] = useState({
-        nameCompleted:'',
-        curse:'',
-        phone:0,
-        adress:''
-    });
-    const handleChange = (e)=>{
-        setValues({
-            ...values,
-            [e.target.name] : e.target.value
-        })
-    }
-    const handleSubmit = async(e) =>{
-        try {
-            e.preventDefault();
-            const response = await axiosConfig.post('/alumns',values)
-            console.log(response);
-            getStudents()
-        } catch (error) {
-            alert('Error al cargar un nuevo alumno')
-            console.log(error);
-        }
-    }
+const AddAlForm = ({ getStudents, handleClose }) => {
+  // const [values, setValues] = useState();
 
-    // const {values, handleChange, handleSubmit, errors} = useForm(addAlumn, validationAddAl)
+  const { handleAdd } = useContext(AlumnsContext);
 
-
-    return ( 
-        <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" >
+  const { values, handleChange, handleSubmit, errors } = useForm(
+    ALUMNS_INITIAL_VALUES,
+    handleAdd,
+    validationAddAl
+  );
+console.log(values)
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
         <Form.Label>Nombre completo</Form.Label>
-        <Form.Control type="text" name="nameCompleted" onChange={handleChange} value={values.nameCompleted} />
+        <Form.Control
+          type="text"
+          name="nameCompleted"
+          onChange={handleChange}
+          value={values.nameCompleted}
+          maxLength={30}
+          required
+        />
       </Form.Group>
 
-      <Form.Group className="mb-3" >
+      <Form.Group className="mb-3">
         <Form.Label>Curso</Form.Label>
-        <Form.Control type="text" name="curse" onChange={handleChange} value={values.curse} />
+        {COURSES_VALUES?.map((course, i) => (
+          <div key={i} className="mb-3">
+            <Form.Check
+              type="radio"
+              name="curse"
+              value={course}
+              label={course}
+              onChange={handleChange}
+            />
+          </div>
+        ))}
       </Form.Group>
 
-      <Form.Group className="mb-3" >
+      <Form.Group className="mb-3">
+        <Form.Label>¿Cuota al día?</Form.Label>
+        <Form.Check
+          type="switch"
+          name="cuoteDay"
+          onChange={handleChange}
+          value={values.cuoteDay}
+          required
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
         <Form.Label>Telefono</Form.Label>
-        <Form.Control type="number" name="phone" onChange={handleChange} value={values.phone} />
+        <Form.Control
+          type="number"
+          name="phone"
+          onChange={handleChange}
+          value={values.phone}
+          minLength={5}
+          maxLength={10}
+          required
+        />
       </Form.Group>
 
-      <Form.Group className="mb-3" >
+      <Form.Group className="mb-3">
         <Form.Label>Direccion</Form.Label>
-        <Form.Control type="text" name="adress" onChange={handleChange} value={values.adress} />
+        <Form.Control
+          type="text"
+          name="adress"
+          onChange={handleChange}
+          value={values.adress}
+          minLength={5}
+          maxLength={30}
+          required
+        />
       </Form.Group>
-      
-      <Button className="btn-alumns" variant="primary" type="submit" onClick={handleCloseAdd} >
+
+      <Button
+        className="btn-alumns"
+        variant="primary"
+        type="submit"
+        // onClick={handleClose}
+      >
         Agregar
       </Button>
-      {/* {Object.keys(errors).length!=0?
-      Object.values(errors).map(error=>
-        <Alert variant="danger">
-          {error}
-        </Alert>
-        )
-      :null
-    } */}
+      {Object.keys(errors).length != 0
+        ? Object.values(errors).map((error, i) => (
+            <Alert key={i} variant="danger" className="mt-3 mb-0">
+              {error}
+            </Alert>
+          ))
+        : null}
     </Form>
-     );
-}
- 
+  );
+};
+
 export default AddAlForm;

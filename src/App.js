@@ -15,83 +15,88 @@ import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import NormalStudentPage from "./pages/NormalStudentPage";
 import SubjectsList from "./pages/SubjectsList";
 import UsersIsAceptedPage from "./pages/UsersIsAceptedPage";
+import SubjectProvider from "./context/SubjectContext";
+import AlumnsProvider from "./context/AlumnsContext";
 
 function App() {
   return (
     <Router>
       <UserProvider>
-        
-          <NavbarComponent />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route
-              path="/home"
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/login" element={<LoginMobile />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route
-              path="/students"
-              element={
-                <PrivateRoute>
-                  <NormalStudentPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/subjects"
-              element={
-                <PrivateRoute>
-                  <SubjectsList />
-                </PrivateRoute>
-              }
-            />
-            <Route path="*" element={<Error404 />} />
-            <Route
-              path="/isacepted"
-              element={
-                <PrivateRouteAdmin>
-                  <UsersIsAceptedPage />
-                </PrivateRouteAdmin>
-              }
-            />
-            <Route
-              path="/admin"
-              element={
-                <PrivateRouteAdmin>
-                  <AdminPage />
-                </PrivateRouteAdmin>
-              }
-            />
-            <Route
-              path="/subject-admin"
-              element={
-                <PrivateRouteAdmin>
-                  <SubjectPage />
-                </PrivateRouteAdmin>
-              }
-            />
-            <Route
-              path="/students-admin"
-              element={
-                <PrivateRouteAdmin>
-                  <StudentsPage />
-                </PrivateRouteAdmin>
-              }
-            />
-            <Route
-              path="/users-admin"
-              element={
-                <PrivateRouteAdmin>
-                  <UsersPage />
-                </PrivateRouteAdmin>
-              }
-            />
-          </Routes>
+        <SubjectProvider>
+          <AlumnsProvider>
+            <NavbarComponent />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route
+                path="/home"
+                element={
+                  <PrivateRoute>
+                    <Home />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/login" element={<LoginMobile />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route
+                path="/students"
+                element={
+                  <PrivateRoute>
+                    <NormalStudentPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/subjects"
+                element={
+                  <PrivateRoute>
+                    <SubjectsList />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="*" element={<Error404 />} />
+              <Route
+                path="/isacepted"
+                element={
+                  <PrivateRouteAdmin>
+                    <UsersIsAceptedPage />
+                  </PrivateRouteAdmin>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRouteAdmin>
+                    <AdminPage />
+                  </PrivateRouteAdmin>
+                }
+              />
+              <Route
+                path="/subject-admin"
+                element={
+                  <PrivateRouteAdmin>
+                    <SubjectPage />
+                  </PrivateRouteAdmin>
+                }
+              />
+              <Route
+                path="/students-admin"
+                element={
+                  <PrivateRouteAdmin>
+                    <StudentsPage />
+                  </PrivateRouteAdmin>
+                }
+              />
+              <Route
+                path="/users-admin"
+                element={
+                  <PrivateRouteAdmin>
+                    <UsersPage />
+                  </PrivateRouteAdmin>
+                }
+              />
+            </Routes>
+          </AlumnsProvider>
+        </SubjectProvider>
       </UserProvider>
     </Router>
   );

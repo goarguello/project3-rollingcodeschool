@@ -13,8 +13,7 @@ const AdminTable = () => {
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [users, setUsers] = useState([]);
-  const { user } = useContext(UserContext)
+  const { user, users, getUsers, deleteUser } = useContext(UserContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -27,39 +26,20 @@ const AdminTable = () => {
     setShowEdit(true);
   };
 
-  const getUser = async () => {
-    try {
-      const response = await axiosConfig.get("/users/");
-      setUsers(response.data.users);
-    } catch (error) {
-      alert("No hay Usuarios");
-    }
-  };
-
-  
-  const deleteUser = async (id) => {
-    try {
-      if(user._id === id) return alert('No puedes Eliminarte a ti mismo')
-      if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
-        await axiosConfig.delete(`/users/${id}`);
-      }
-      getUser();
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   useEffect(() => {
-    getUser();
+    getUsers();
   }, []);
   return (
     <>
-    <div className="d-flex justify-content-end">
-
-      <Button className="btn btn-success shadow my-3 w-auto" variant="primary" onClick={handleShow}>
-        Registrar usuario
-      </Button>
-    </div>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="btn btn-success shadow my-3 w-auto"
+          variant="primary"
+          onClick={handleShow}
+        >
+          Registrar usuario
+        </Button>
+      </div>
       <Table className="admin-table" responsive striped bordered hover>
         <thead>
           <tr className="text-center">
@@ -81,7 +61,13 @@ const AdminTable = () => {
               <td>{user.email}</td>
               <td>{user.phone}</td>
               <td>{user.adress}</td>
-              <td>{user.courseInCharge}</td>
+              <td className="text-center">
+                <ul>
+                  {user.courseInCharge?.map((course, index) => (
+                    <li key={index}>{course}</li>
+                  ))}
+                </ul>
+              </td>
               <td>{user.state ? "Habilitado" : "Deshabilitado"}</td>
               <td className="">
                 <div className="d-flex align-items-start justify-content-center">
@@ -105,10 +91,14 @@ const AdminTable = () => {
           ))}
         </tbody>
       </Table>
-      <AddModalUsers getUser={getUser} show={show} handleClose={handleClose} />
+      <AddModalUsers
+        getUsers={getUsers}
+        show={show}
+        handleClose={handleClose}
+      />
       <EditUserModal
         user={selected}
-        getUser={getUser}
+        getUsers={getUsers}
         show={showEdit}
         handleClose={handleCloseEdit}
       />

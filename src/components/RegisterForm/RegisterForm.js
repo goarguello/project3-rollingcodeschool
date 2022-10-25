@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
 import {
   MDBBtn,
   MDBContainer,
@@ -9,22 +9,38 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import axiosConfig from "../../config/axiosConfig";
 import { REGISTER_INITIAL_VALUES } from "../../constants";
-import { validationRegister } from "../../helpers/validations";
+import { validationRegisterMain } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 import "./RegisterForm.css";
 import { UserContext } from "../../context/UserContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
-  const { register } = useContext(UserContext);
+  const { register, successRegister, setSuccessRegister, error ,setError,flag, setFlag } =
+    useContext(UserContext);
+  const navigate = useNavigate();
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     REGISTER_INITIAL_VALUES,
     register,
-    validationRegister
+    validationRegisterMain
   );
+
+  const goToHome = () => {
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSuccessRegister({});
+      setError({})
+      // goToHome();
+    }, 5000);
+  }, [flag]);
 
   return (
     <div className="principal d-flex align-items-center justify-content-center">
@@ -33,7 +49,12 @@ const RegisterForm = () => {
           <MDBContainer fluid>
             <MDBRow className="d-flex justify-content-center align-items-center h-100 ">
               <MDBCol col="12">
-                <Form onSubmit={handleSubmit}  >
+                <Form
+                  onSubmit={(e) => {
+                    handleSubmit(e);
+                    setFlag(!flag);
+                  }}
+                >
                   <MDBCard
                     className=" text-white my-5 mx-auto register-form "
                     style={{
@@ -58,6 +79,8 @@ const RegisterForm = () => {
                         id="formControlName"
                         type="text"
                         size="lg"
+                        minLength={3}
+                        maxLength={25}
                         required
                       />
                       <MDBInput
@@ -71,6 +94,8 @@ const RegisterForm = () => {
                         id="formControlEmail"
                         type="email"
                         size="lg"
+                        minLength={1}
+                        maxLength={50}
                         required
                       />
                       <MDBInput
@@ -84,6 +109,7 @@ const RegisterForm = () => {
                         id="formControlPhone"
                         type="number"
                         size="lg"
+                        maxLength={10}
                         required
                       />
                       <MDBInput
@@ -97,9 +123,11 @@ const RegisterForm = () => {
                         id="formControlAdress"
                         type="text"
                         size="lg"
+                        minLength={5}
+                        maxLength={25}
                         required
                       />
-                      <MDBInput
+                      {/* <MDBInput
                         wrapperClass="mb-4 mx-5 w-100"
                         labelClass="text-white"
                         wrapperStyle={{}}
@@ -110,8 +138,10 @@ const RegisterForm = () => {
                         id="formControlcourseInCharge"
                         type="text"
                         size="lg"
+                        minLength={3}
+                        maxLength={30}
                         required
-                      />
+                      /> */}
                       <MDBRow className="g-3 w-100 mb-2">
                         <MDBInput
                           wrapperClass="w-100"
@@ -123,6 +153,8 @@ const RegisterForm = () => {
                           id="formControlPassword"
                           type="password"
                           size="lg"
+                          minLength={8}
+                          maxLength={30}
                           required
                         />
                         <MDBCol size="auto">
@@ -146,6 +178,8 @@ const RegisterForm = () => {
                         id="formControlPassword2"
                         type="password"
                         size="lg"
+                        minLength={8}
+                        maxLength={30}
                         required
                       />
 
@@ -157,8 +191,24 @@ const RegisterForm = () => {
                         Registrarse
                       </MDBBtn>
                       {Object.keys(errors).length != 0
-                        ? Object.values(errors).map((error) => (
-                            <Alert variant="danger">{error}</Alert>
+                        ? Object.values(errors).map((error, i) => (
+                            <Alert key={i} variant="danger">
+                              {error}
+                            </Alert>
+                          ))
+                        : null}
+                      {Object.keys(error).length != 0
+                        ? Object.values(error).map((error, i) => (
+                            <Alert key={i} variant="danger">
+                              {error}
+                            </Alert>
+                          ))
+                        : null}
+                      {Object.keys(successRegister).length != 0
+                        ? Object.values(successRegister).map((message, i) => (
+                            <Alert key={i} variant="success">
+                              {message}
+                            </Alert>
                           ))
                         : null}
                     </MDBCardBody>
