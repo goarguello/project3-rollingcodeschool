@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { SubjectContext } from "../../context/SubjectContext";
@@ -34,7 +34,7 @@ function ViewSubjectModal({ show, setShow, subjectId, setId }) {
               <p>No hay alumnos.</p>
             )
           ) : (
-            <p>Cargando...</p>
+            <Spinner animation="border" />
           )}
         </ListGroup>
       </Modal.Body>

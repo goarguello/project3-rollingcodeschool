@@ -35,7 +35,6 @@ const UserProvider = ({ children }) => {
       setUser(null);
       setToken(null);
       setAuthenticated(false);
-      // console.log(error)
       setError({ message: error.response.data.message });
     }
   };
@@ -132,11 +131,14 @@ const UserProvider = ({ children }) => {
 
   const deleteUser = async (id) => {
     try {
-      if (user._id === id) return alert("No puedes Eliminarte a ti mismo");
-      if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
-        await axiosConfig.delete(`/users/${id}`);
+      if (user._id === id) {
+        setError({ message: "No puedes Eliminarte a ti mismo" });
+      } else {
+        if (window.confirm("¿Estas seguro de eliminar el usuario?")) {
+          await axiosConfig.delete(`/users/${id}`);
+        }
+        getUsers();
       }
-      getUsers();
     } catch (error) {
       alert(error.message);
     }

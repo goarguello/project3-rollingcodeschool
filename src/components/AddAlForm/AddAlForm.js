@@ -16,7 +16,6 @@ const AddAlForm = ({ getStudents, handleClose }) => {
     handleAdd,
     validationAddAl
   );
-  console.log(values);
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">

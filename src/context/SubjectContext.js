@@ -16,7 +16,6 @@ const SubjectProvider = ({ children }) => {
   const addSubject = async (values) => {
     try {
       const response = await axiosConfig.post("/subjects", values);
-      console.log(response);
       getSubjects();
     } catch (error) {
       console.log(error);

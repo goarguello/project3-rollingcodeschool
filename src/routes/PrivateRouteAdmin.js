@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
+import { Spinner } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
@@ -15,7 +16,7 @@ const PrivateRouteAdmin = ({ children }) => {
     setFlag(true);
   }, []);
 
-  if (loading) return "Cargando...";
+  if (loading) return <Spinner animation="border" />;
   return flag ? (
     authenticated && user.role === "ADMIN" ? (
       children
@@ -23,7 +24,7 @@ const PrivateRouteAdmin = ({ children }) => {
       <Navigate to="/home" />
     )
   ) : (
-    "Cargando..."
+    <Spinner animation="border" />
   );
 };
 
