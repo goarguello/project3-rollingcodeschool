@@ -16,7 +16,7 @@ const AddAlForm = ({ getStudents, handleClose }) => {
     handleAdd,
     validationAddAl
   );
-console.log(values)
+  console.log(values);
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">
@@ -82,15 +82,21 @@ console.log(values)
           required
         />
       </Form.Group>
-
-      <Button
-        className="btn-alumns"
-        variant="primary"
-        type="submit"
-        // onClick={handleClose}
-      >
-        Agregar
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button mt-3"
+          variant="primary"
+          type="submit"
+          // onClick={handleClose}
+        >
+          Agregar
+        </Button>
+      </div>
+      <div className="d-flex justify-content-end">
+        <Button className="button mt-3" onClick={handleClose}>
+          Cerrar
+        </Button>
+      </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
             <Alert key={i} variant="danger" className="mt-3 mb-0">

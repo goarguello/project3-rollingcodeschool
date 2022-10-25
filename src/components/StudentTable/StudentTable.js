@@ -19,8 +19,7 @@ const StudentTable = () => {
   const handleShowAdd = () => setShowAdd(true);
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
-  
-  
+
   const handleEdit = (id) => {
     setSelected(id);
     handleShowEdit();
@@ -30,9 +29,14 @@ const StudentTable = () => {
   }, []);
   return (
     <>
-      <Button className="button mt-0" onClick={handleShowAdd}>
-        Agregar un alumno
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="btn btn-success shadow my-2 w-auto"
+          onClick={handleShowAdd}
+        >
+          Agregar un alumno
+        </Button>
+      </div>
       <Table className="Student-Table" responsive striped bordered hover>
         <thead>
           <tr className="text-center">
@@ -52,7 +56,7 @@ const StudentTable = () => {
               <td>{student._id}</td>
               <td>{student.nameCompleted}</td>
               <td>{student.curse}</td>
-              <td>{student.cuoteDay? "🟢" : "🟠"}</td>
+              <td>{student.cuoteDay ? "🟢" : "🟠"}</td>
               <td>{student.phone}</td>
               <td>{student.adress}</td>
               <td>

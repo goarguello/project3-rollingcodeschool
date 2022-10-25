@@ -7,10 +7,10 @@ import { UserContext } from "../../context/UserContext";
 import { validationRegister } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
-const EditUserForm = ({ user, handleClose, getUsers }) => {
-  const [arrCourses, setArrCourses] = useState([]);
-
-  const { editUser, getSingleUser, value } = useContext(UserContext);
+const EditUserForm = ({ handleClose, value }) => {
+  // const { value, getSingleUser, editUser, flag, setFlag } =
+  //   useContext(UserContext);
+  const { editUser, setFlag } = useContext(UserContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     value,
@@ -20,13 +20,14 @@ const EditUserForm = ({ user, handleClose, getUsers }) => {
     value.password
   );
 
-
-  useEffect(() => {
-    getSingleUser(user);
-  }, []);
+  // useEffect(() => {
+  //   getSingleUser(user);
+  // }, []);
 
   return (
     <Form onSubmit={(e) => handleSubmit(e, value._id, value.password)}>
+      {/* {flag ? (
+        // <> */}
       <Form.Group className="mb-3">
         <Form.Label>Nombre completo</Form.Label>
         <Form.Control
@@ -111,15 +112,27 @@ const EditUserForm = ({ user, handleClose, getUsers }) => {
           }
         })}
       </Form.Group>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button mt-3"
+          type="submit"
+          // onClick={handleClose}
+        >
+          Modificar
+        </Button>
+      </div>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button mt-3"
+          onClick={() => {
+            setFlag(false);
+            handleClose();
+          }}
+        >
+          Cerrar
+        </Button>
+      </div>
 
-      <Button
-        className="btn-alumns"
-        variant="primary"
-        type="submit"
-        // onClick={handleClose}
-      >
-        Modificar
-      </Button>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error) => (
             <Alert className="mt-3 mb-0" variant="danger">
@@ -127,6 +140,10 @@ const EditUserForm = ({ user, handleClose, getUsers }) => {
             </Alert>
           ))
         : null}
+      {/* </>
+      ) : (
+        "Cargando..."
+      )} */}
     </Form>
   );
 };

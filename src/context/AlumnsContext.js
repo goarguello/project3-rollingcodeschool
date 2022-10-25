@@ -4,8 +4,10 @@ import axiosConfig from "../config/axiosConfig";
 export const AlumnsContext = createContext();
 
 const AlumnsProvider = ({ children }) => {
+  const [flag, setFlag] = useState(false);
   const [students, setStudents] = useState([]);
   const [valuesModal, setValuesModal] = useState({});
+  const [value, setValue] = useState({});
 
   const getStudents = async () => {
     try {
@@ -20,26 +22,28 @@ const AlumnsProvider = ({ children }) => {
     try {
       const response = await axiosConfig.get("/alumns/" + id);
       setValuesModal(response.data.alumn);
+      setValue(response.data.alumn);
+      setFlag(true);
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const handleAdd = async(values) =>{
+  const handleAdd = async (values) => {
     try {
-        const response = await axiosConfig.post('/alumns',values)
-        console.log(response);
-        getStudents()
+      const response = await axiosConfig.post("/alumns", values);
+      console.log(response);
+      getStudents();
     } catch (error) {
-        alert('Error al cargar un nuevo alumno')
-        console.log(error);
+      alert("Error al cargar un nuevo alumno");
+      console.log(error);
     }
-}
+  };
 
-const handleEdit = async ( values,id) => {
+  const handleEdit = async (values, id) => {
     try {
       const response = await axiosConfig.put("/alumns/" + id, values);
-      console.log(response)
+      console.log(response);
       getStudents();
     } catch (error) {
       alert("Error al editar un alumno");
@@ -58,7 +62,21 @@ const handleEdit = async ( values,id) => {
   };
 
   return (
-    <AlumnsContext.Provider value={{ students, getStudents, handleDelete, handleAdd,getStudent, valuesModal, handleEdit }}>
+    <AlumnsContext.Provider
+      value={{
+        flag,
+        setFlag,
+        students,
+        getStudents,
+        handleDelete,
+        handleAdd,
+        getStudent,
+        valuesModal,
+        handleEdit,
+        value,
+        setValue,
+      }}
+    >
       {children}
     </AlumnsContext.Provider>
   );

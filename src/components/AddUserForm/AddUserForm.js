@@ -128,17 +128,24 @@ const AddUserForm = ({ handleClose }) => {
           required
         />
       </Form.Group>
-
-      <Button className="button w-50 me-2 mt-0" variant="primary" type="submit">
-        Agregar
-      </Button>
-      <Button
-        className="button w-50 me-2 mt-2"
-        variant="primary"
-        onClick={handleClose}
-      >
-        Cerrar
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button w-50 me-2 mt-0"
+          variant="primary"
+          type="submit"
+        >
+          Agregar
+        </Button>
+      </div>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button w-50 me-2 mt-2"
+          variant="primary"
+          onClick={handleClose}
+        >
+          Cerrar
+        </Button>
+      </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
             <Alert className="mt-3 mb-0" key={i} variant="danger">

@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import axiosConfig from "../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import { REGISTER_INITIAL_VALUES } from "../constants";
 
 export const UserContext = createContext();
 
@@ -13,7 +14,7 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [successRegister, setSuccessRegister] = useState({});
   const [error, setError] = useState({});
-  const [value, setValues] = useState({});
+  const [value, setValue] = useState({});
   const navigate = useNavigate();
 
   const login = async (values) => {
@@ -106,7 +107,8 @@ const UserProvider = ({ children }) => {
   const getSingleUser = async (id) => {
     try {
       const response = await axiosConfig.get(`/users/${id}`);
-      setValues(response.data);
+      setValue(response.data);
+      setFlag(true);
     } catch (error) {
       console.log(error);
     }
@@ -164,7 +166,7 @@ const UserProvider = ({ children }) => {
         value,
         getUsers,
         users,
-        deleteUser
+        deleteUser,
       }}
     >
       {children}

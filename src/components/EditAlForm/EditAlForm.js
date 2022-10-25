@@ -6,36 +6,19 @@ import { AlumnsContext } from "../../context/AlumnsContext";
 import { validationAddAl } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
-const EditAlForm = ({ getStudents, handleCloseEdit, selected }) => {
-  // const [values, setValues] = useState({});
-
-  const { valuesModal, getStudent, handleEdit } = useContext(AlumnsContext);
-  // const getStudent = async () => {
-  //   try {
-  //     const response = await axiosConfig.get("/alumns/" + selected);
-  //     setValuesModal(response.data.alumn);
-  //   } catch (error) {
-  //     alert(error.message);
-  //   }
-  // };
-
-  // const handleChange = (e) => {
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+const EditAlForm = ({ handleClose, value }) => {
+  const { handleEdit, setValue, setFlag } = useContext(AlumnsContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
-    valuesModal,
+    value,
     handleEdit,
     validationAddAl,
-    selected
+    value._id
   );
 
-  useEffect(() => {
-    getStudent(selected);
-  }, []);
+  // useEffect(() => {
+  //   getStudent(selected);
+  // }, []);
 
   console.log(values.curse);
   return (
@@ -113,15 +96,27 @@ const EditAlForm = ({ getStudents, handleCloseEdit, selected }) => {
           value={values.adress}
         />
       </Form.Group>
-
-      <Button
-        className="btn-alumns"
-        variant="primary"
-        type="submit"
-        // onClick={handleCloseEdit}
-      >
-        Editar
-      </Button>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button mt-3"
+          type="submit"
+          // onClick={handleClose}
+        >
+          Editar
+        </Button>
+      </div>
+      <div className="d-flex justify-content-end">
+        <Button
+          className="button mt-3"
+          onClick={() => {
+            setFlag(false);
+            setValue({});
+            handleClose();
+          }}
+        >
+          Cerrar
+        </Button>
+      </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
             <Alert key={i} variant="danger" className="mt-3 mb-0">

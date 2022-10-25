@@ -5,18 +5,18 @@ import axiosConfig from "../config/axiosConfig";
 export const SubjectContext = createContext();
 
 const SubjectProvider = ({ children }) => {
-  const [value, setValue] = useState({ name: "" });
   const [flag, setFlag] = useState(false);
   const [page, setPage] = useState(1);
   const [subjects, setSubjects] = useState([]);
   const [totalSubjects, setTotalSubjects] = useState(0);
   const [errors, setErrors] = useState([{}]);
-  const navigate = useNavigate()
+  const [value, setValue] = useState({});
+  const navigate = useNavigate();
 
   const addSubject = async (values) => {
     try {
       const response = await axiosConfig.post("/subjects", values);
-      console.log(response)
+      console.log(response);
       getSubjects();
     } catch (error) {
       console.log(error);
@@ -37,16 +37,17 @@ const SubjectProvider = ({ children }) => {
     try {
       const res = await axiosConfig.get(`/subjects/${id}`);
       setValue(res.data);
+      setFlag(true);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleEditSubject = async ( values, id) => {
+  const handleEditSubject = async (values, id) => {
     try {
       await axiosConfig.put(`/subjects/${id}`, values);
       getSubjects();
-      navigate("/subject-admin")
+      navigate("/subject-admin");
     } catch (error) {
       console.log(error);
     }
@@ -67,6 +68,8 @@ const SubjectProvider = ({ children }) => {
     <SubjectContext.Provider
       value={{
         //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
+        flag,
+        setFlag,
         addSubject,
         getSubjects,
         getSubject,
@@ -80,8 +83,6 @@ const SubjectProvider = ({ children }) => {
         page,
         setPage,
         errors,
-        flag,
-        setFlag,
       }}
     >
       {children}
