@@ -19,7 +19,7 @@ const UsersIsAcepted = () => {
     }
   };
 
-  const handleClick = async (id, p, s) => {
+  const handleClick = async (id, s) => {
     try {
       setCheckedState(s);
       if (user._id === id) {
@@ -27,7 +27,6 @@ const UsersIsAcepted = () => {
       } else {
         await axiosConfig.put(`/users/${id}`, {
           state: !checkedState,
-          password: p,
         });
         getUsersIsAcepted();
       }
@@ -78,7 +77,7 @@ const UsersIsAcepted = () => {
                     type="checkbox"
                     // onChange={(e)=> handleChange(e,user._id, user.password, user.state)}
                     onChange={() =>
-                      handleClick(user._id, user.password, user.state)
+                      handleClick(user._id, user.state)
                     }
                     checked={user.state ? true : false}
                   />

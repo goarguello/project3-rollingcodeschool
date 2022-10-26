@@ -113,7 +113,7 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const editUser = async (val, id, p) => {
+  const editUser = async (val, id) => {
     try {
       const response = await axiosConfig.put(`/users/${id}`, {
         adress: val.adress,
@@ -121,7 +121,6 @@ const UserProvider = ({ children }) => {
         email: val.email,
         name: val.name,
         phone: val.phone,
-        password: p,
       });
       getUsers();
     } catch (error) {

@@ -15,6 +15,8 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
     value._id
   );
 
+  console.log(Object.keys(errors));
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -31,7 +33,11 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
         />
       </Form.Group>
       <div className="d-flex justify-content-end">
-        <Button className="button w-50  mt-0" type="submit">
+        <Button
+          className="button w-50  mt-0"
+          type="submit"
+          onClick={Object.keys(errors).length == 0 ? handleClose: null  }
+        >
           Modificar
         </Button>
       </div>
@@ -40,7 +46,7 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
           className="button w-50  mt-3"
           onClick={() => {
             setFlag(false);
-            setValue({})
+            setValue({});
             handleClose();
           }}
         >
