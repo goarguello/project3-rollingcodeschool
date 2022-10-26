@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal, Form, Button, Alert } from "react-bootstrap";
 import { SUBJECT_INITAL_VALUES } from "../../constants";
 import { SubjectContext } from "../../context/SubjectContext";
@@ -14,10 +14,24 @@ const AddSubjectForm = ({ handleClose }) => {
     validationSubject
   );
 
-  
+  // const handleSubmitForm = (e) => {
+  //   if (Object.keys(errors).length === 0) {
+  //     handleSubmit(e);
+  //     console.log("ENTRE");
+  //     handleClose();
+  //   }
+  // };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form
+      onSubmit={handleSubmit
+        // handleSubmitForm
+        // handleSubmit(e);
+        // if (Object.keys(errors).length !== 0) {
+        //   handleClose();
+        // }
+      }
+    >
       <Form.Group className="mb-3">
         <Form.Control
           onChange={handleChange}
@@ -26,9 +40,9 @@ const AddSubjectForm = ({ handleClose }) => {
           placeholder="Materia"
           name="name"
           value={values.name}
-          minLength={3}
-          maxLength={20}
-          required
+          // minLength={3}
+          // maxLength={20}
+          // required
         />
       </Form.Group>
       <div className="d-flex justify-content-end">
@@ -36,6 +50,8 @@ const AddSubjectForm = ({ handleClose }) => {
           className="button w-50 mt-0"
           variant="primary"
           type="submit"
+          // onClick={handleSubmitForm}
+          // onClick={Object.keys(errors).length === 0 ? handleClose : null}
         >
           Agregar
         </Button>

@@ -17,6 +17,7 @@ const SubjectProvider = ({ children }) => {
     try {
       const response = await axiosConfig.post("/subjects", values);
       getSubjects();
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }
