@@ -80,22 +80,6 @@ export const validationRegister = (values) => {
     errors.email = "El email no debe poseer más de 50 caracteres";
   }
 
-  // if (!values.password) {
-  //   errors.name = "La contraseña es obligatoria.";
-  // } else if (
-  //   !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-  //     values.password
-  //   )
-  // ) {
-  //   errors.password =
-  //     "La contraseña no es válida. Debe contener una mayuscula, un número y un caracter especial.";
-  // } else if (values.password.length < 8) {
-  //   errors.password = "La contraseña debe tener como mínimo 8 caracteres.";
-  // } else if (values.password.length > 30) {
-  //   errors.password = "La contraseña no debe poseer más de 30 caracteres.";
-  // } else if (values.password !== values.password2) {
-  //   errors.password = "Las contraseñas no coinciden.";
-  // }
 
   if (!values.phone) {
     errors.phone = "El número telefónico es obligatorio.";
@@ -155,11 +139,11 @@ export const validationLogin = (values) => {
 
 export const validationAddAl = (values) => {
   let errors = {};
-  if (!values.nameCompleted) {
-    errors.nameCompleted = "El nombre del alumno es obligatorio";
-  } else if (values.nameCompleted.length > 30) {
-    errors.nameCompleted = "El nombre no debe poseer más de 30 caracteres";
-  }
+  // if (!values.nameCompleted) {
+  //   errors.nameCompleted = "El nombre del alumno es obligatorio";
+  // } else if (values.nameCompleted.length > 30) {
+  //   errors.nameCompleted = "El nombre no debe poseer más de 30 caracteres";
+  // }
 
   if (!values.curse) {
     errors.curse = "El curso es obligatorio";
@@ -177,7 +161,7 @@ export const validationAddAl = (values) => {
   }
 
   if (!values.adress) {
-    errors.adress = "El nombre del alumno es obligatorio";
+    errors.adress = "La dirección del alumno es obligatoria";
   } else if (values.adress.length > 30) {
     errors.adress = "La direccion no debe poseer más de 30 caracteres";
   }

@@ -8,27 +8,29 @@ import useForm from "../../hooks/useForm";
 
 const AddUserForm = ({ handleClose }) => {
   const {
-    register,
+    registerTwo,
     successRegister,
     setSuccessRegister,
     error,
     setError,
     flag,
     setFlag,
+    closeModal,
+    setCloseModal,
   } = useContext(UserContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     REGISTER_INITIAL_VALUES,
-    register,
+    registerTwo,
     validationRegister
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      setError({});
-      setSuccessRegister({});
-    }, 5000);
-  }, [flag]);
+    if (closeModal) {
+      handleClose();
+    }
+    setCloseModal(false);
+  }, [closeModal]);
 
   return (
     <Form

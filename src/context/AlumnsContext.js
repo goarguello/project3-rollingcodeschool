@@ -5,9 +5,11 @@ export const AlumnsContext = createContext();
 
 const AlumnsProvider = ({ children }) => {
   const [flag, setFlag] = useState(false);
+  const [closeModal, setCloseModal] = useState(false);
   const [students, setStudents] = useState([]);
   const [valuesModal, setValuesModal] = useState({});
   const [value, setValue] = useState({});
+  const [error, setError] = useState({});
 
   const getStudents = async () => {
     try {
@@ -33,9 +35,9 @@ const AlumnsProvider = ({ children }) => {
     try {
       const response = await axiosConfig.post("/alumns", values);
       getStudents();
+      setCloseModal(true);
     } catch (error) {
-      alert("Error al cargar un nuevo alumno");
-      console.log(error);
+      setError({ message: error.response.data.errors[0].msg });
     }
   };
 
@@ -43,8 +45,9 @@ const AlumnsProvider = ({ children }) => {
     try {
       const response = await axiosConfig.put("/alumns/" + id, values);
       getStudents();
+      setCloseModal(true);
     } catch (error) {
-      alert("Error al editar un alumno");
+      setError({ message: error.response.data.errors[0].msg });
     }
   };
 
@@ -64,6 +67,8 @@ const AlumnsProvider = ({ children }) => {
       value={{
         flag,
         setFlag,
+        closeModal,
+        setCloseModal,
         students,
         getStudents,
         handleDelete,
@@ -73,6 +78,8 @@ const AlumnsProvider = ({ children }) => {
         handleEdit,
         value,
         setValue,
+        error,
+        setError,
       }}
     >
       {children}

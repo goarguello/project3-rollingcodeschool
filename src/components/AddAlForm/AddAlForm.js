@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axiosConfig from "../../config/axiosConfig";
 import { ALUMNS_INITIAL_VALUES, COURSES_VALUES } from "../../constants";
@@ -7,15 +7,27 @@ import { validationAddAl } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
 const AddAlForm = ({ getStudents, handleClose }) => {
-  // const [values, setValues] = useState();
-
-  const { handleAdd } = useContext(AlumnsContext);
+  const { handleAdd, closeModal, setCloseModal, error, setError } =
+    useContext(AlumnsContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     ALUMNS_INITIAL_VALUES,
     handleAdd,
     validationAddAl
   );
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError({});
+      }, 5000);
+    }
+    if (closeModal) {
+      handleClose();
+    }
+    setCloseModal(false);
+  }, [closeModal]);
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3">
@@ -25,6 +37,7 @@ const AddAlForm = ({ getStudents, handleClose }) => {
           name="nameCompleted"
           onChange={handleChange}
           value={values.nameCompleted}
+          minLength={3}
           maxLength={30}
           required
         />
@@ -98,6 +111,13 @@ const AddAlForm = ({ getStudents, handleClose }) => {
       </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
+            <Alert key={i} variant="danger" className="mt-3 mb-0">
+              {error}
+            </Alert>
+          ))
+        : null}
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((error, i) => (
             <Alert key={i} variant="danger" className="mt-3 mb-0">
               {error}
             </Alert>
