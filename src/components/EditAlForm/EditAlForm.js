@@ -7,7 +7,15 @@ import { validationAddAl } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
 const EditAlForm = ({ handleClose, value }) => {
-  const { handleEdit, setValue, setFlag } = useContext(AlumnsContext);
+  const {
+    handleEdit,
+    setValue,
+    setFlag,
+    closeModal,
+    setCloseModal,
+    error,
+    setError,
+  } = useContext(AlumnsContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     value,
@@ -15,6 +23,18 @@ const EditAlForm = ({ handleClose, value }) => {
     validationAddAl,
     value._id
   );
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError({});
+      }, 5000);
+    }
+    if (closeModal) {
+      handleClose();
+    }
+    setCloseModal(false);
+  }, [closeModal]);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -25,6 +45,9 @@ const EditAlForm = ({ handleClose, value }) => {
           name="nameCompleted"
           onChange={handleChange}
           value={values.nameCompleted}
+          minLength={5}
+          maxLength={30}
+          required
         />
       </Form.Group>
 
@@ -79,6 +102,9 @@ const EditAlForm = ({ handleClose, value }) => {
           name="phone"
           onChange={handleChange}
           value={values.phone}
+          minLength={5}
+          maxLength={10}
+          required
         />
       </Form.Group>
 
@@ -89,6 +115,9 @@ const EditAlForm = ({ handleClose, value }) => {
           name="adress"
           onChange={handleChange}
           value={values.adress}
+          minLength={5}
+          maxLength={30}
+          required
         />
       </Form.Group>
       <div className="d-flex justify-content-end">
@@ -114,6 +143,13 @@ const EditAlForm = ({ handleClose, value }) => {
       </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
+            <Alert key={i} variant="danger" className="mt-3 mb-0">
+              {error}
+            </Alert>
+          ))
+        : null}
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((error, i) => (
             <Alert key={i} variant="danger" className="mt-3 mb-0">
               {error}
             </Alert>

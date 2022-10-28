@@ -6,7 +6,15 @@ import { validationSubject } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
 const EditSubjectForm = ({ userId, handleClose, value }) => {
-  const { handleEditSubject, setFlag, setValue } = useContext(SubjectContext);
+  const {
+    handleEditSubject,
+    setFlag,
+    setValue,
+    closeModal,
+    setCloseModal,
+    error,
+    setError,
+  } = useContext(SubjectContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     value,
@@ -15,7 +23,18 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
     value._id
   );
 
-  console.log(Object.keys(errors));
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError({});
+        // goToHome();
+      }, 5000);
+    }
+    if (closeModal) {
+      handleClose();
+    }
+    setCloseModal(false);
+  }, [closeModal]);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -33,11 +52,7 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
         />
       </Form.Group>
       <div className="d-flex justify-content-end">
-        <Button
-          className="button w-50  mt-0"
-          type="submit"
-          onClick={Object.keys(errors).length == 0 ? handleClose: null  }
-        >
+        <Button className="button w-50  mt-0" type="submit">
           Modificar
         </Button>
       </div>
@@ -55,6 +70,13 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
       </div>
       {Object.keys(errors).length != 0
         ? Object.values(errors).map((error, i) => (
+            <Alert key={i} variant="danger" className="mt-3 mb-0">
+              {error}
+            </Alert>
+          ))
+        : null}
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((error, i) => (
             <Alert key={i} variant="danger" className="mt-3 mb-0">
               {error}
             </Alert>

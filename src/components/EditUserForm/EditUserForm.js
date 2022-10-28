@@ -10,7 +10,8 @@ import useForm from "../../hooks/useForm";
 const EditUserForm = ({ handleClose, value }) => {
   // const { value, getSingleUser, editUser, flag, setFlag } =
   //   useContext(UserContext);
-  const { editUser, setFlag } = useContext(UserContext);
+  const { editUser, setFlag, closeModal, setCloseModal, error } =
+    useContext(UserContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     value,
@@ -20,9 +21,12 @@ const EditUserForm = ({ handleClose, value }) => {
     value.password
   );
 
-  // useEffect(() => {
-  //   getSingleUser(user);
-  // }, []);
+  useEffect(() => {
+    if (closeModal) {
+      handleClose();
+    }
+    setCloseModal(false);
+  }, [closeModal]);
 
   return (
     <Form onSubmit={(e) => handleSubmit(e, value._id, value.password)}>
@@ -134,13 +138,19 @@ const EditUserForm = ({ handleClose, value }) => {
       </div>
 
       {Object.keys(errors).length != 0
-        ? Object.values(errors).map((error) => (
-            <Alert className="mt-3 mb-0" variant="danger">
+        ? Object.values(errors).map((error, i) => (
+            <Alert key={i} className="mt-3 mb-0" variant="danger">
               {error}
             </Alert>
           ))
         : null}
-      
+      {Object.keys(error).length != 0
+        ? Object.values(error).map((error, i) => (
+            <Alert key={i} className="mt-3 mb-0" variant="danger">
+              {error}
+            </Alert>
+          ))
+        : null}
     </Form>
   );
 };

@@ -7,6 +7,7 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [flag, setFlag] = useState(false);
+  const [closeModal, setCloseModal] = useState(false);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [token, setToken] = useState(null);
@@ -90,10 +91,22 @@ const UserProvider = ({ children }) => {
         }, 5000);
       }
     } catch (error) {
-      console.log(error);
       setError({ message: error.response.data.errors[0].msg });
     }
   };
+
+  const registerTwo = async (values) => {
+    try {
+      const userNew = await axiosConfig.post("/users", values);
+      if (userNew.status === 201) {
+        getUsers()
+        setCloseModal(true);
+      }
+    } catch (error) {
+      setError({ message: error.response.data.errors[0].msg });
+    }
+  };
+
   const getUsers = async () => {
     try {
       const response = await axiosConfig.get("/users/");
@@ -123,8 +136,9 @@ const UserProvider = ({ children }) => {
         phone: val.phone,
       });
       getUsers();
+      setCloseModal(true);
     } catch (error) {
-      console.log(error);
+      setError({ message: error.response.data.errors[0].msg });
     }
   };
 
@@ -149,6 +163,8 @@ const UserProvider = ({ children }) => {
         //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
         flag,
         setFlag,
+        closeModal,
+        setCloseModal,
         user,
         setUser,
         login,
@@ -157,6 +173,7 @@ const UserProvider = ({ children }) => {
         getAuth,
         logout,
         register,
+        registerTwo,
         loading,
         successRegister,
         setSuccessRegister,

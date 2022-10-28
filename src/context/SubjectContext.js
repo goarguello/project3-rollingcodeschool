@@ -6,10 +6,12 @@ export const SubjectContext = createContext();
 
 const SubjectProvider = ({ children }) => {
   const [flag, setFlag] = useState(false);
+  const [closeModal, setCloseModal] = useState(false);
   const [page, setPage] = useState(1);
   const [subjects, setSubjects] = useState([]);
   const [totalSubjects, setTotalSubjects] = useState(0);
   const [errors, setErrors] = useState([{}]);
+  const [error, setError] = useState({});
   const [value, setValue] = useState({});
   const navigate = useNavigate();
 
@@ -17,9 +19,10 @@ const SubjectProvider = ({ children }) => {
     try {
       const response = await axiosConfig.post("/subjects", values);
       getSubjects();
-      window.location.reload()
+      setCloseModal(true);
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setError({ message: error.response.data.message });
     }
   };
 
@@ -47,7 +50,7 @@ const SubjectProvider = ({ children }) => {
     try {
       await axiosConfig.put(`/subjects/${id}`, values);
       getSubjects();
-      navigate("/subject-admin");
+      setCloseModal(true);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +73,8 @@ const SubjectProvider = ({ children }) => {
         //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
         flag,
         setFlag,
+        closeModal,
+        setCloseModal,
         addSubject,
         getSubjects,
         getSubject,
@@ -83,6 +88,8 @@ const SubjectProvider = ({ children }) => {
         page,
         setPage,
         errors,
+        error,
+        setError,
       }}
     >
       {children}
