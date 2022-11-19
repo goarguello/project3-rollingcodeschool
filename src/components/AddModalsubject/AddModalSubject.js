@@ -1,9 +1,4 @@
-import React, { useContext, useState } from "react";
-import { Modal, Form, Button, Alert } from "react-bootstrap";
-import { SUBJECT_INITAL_VALUES } from "../../constants";
-import { SubjectContext } from "../../context/SubjectContext";
-import { validationSubject } from "../../helpers/validations";
-import useForm from "../../hooks/useForm";
+import { Modal } from "react-bootstrap";
 import AddSubjectForm from "../AddSubjectForm/AddSubjectForm";
 import "./AddModalSubject.css";
 

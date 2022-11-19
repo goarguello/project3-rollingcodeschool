@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import AddUserForm from "../AddUserForm/AddUserForm";
 
 function AddModalUsers({ show, handleClose, getUsers }) {

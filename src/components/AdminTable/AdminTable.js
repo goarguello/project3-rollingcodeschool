@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Table, Button, Alert } from "react-bootstrap";
-import axiosConfig from "../../config/axiosConfig";
 import { AiFillDelete } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
 import "./AdminTable.css";

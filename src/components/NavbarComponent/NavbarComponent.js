@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import "./NavbarComponent.css";
 import { UserContext } from "../../context/UserContext";

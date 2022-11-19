@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Alert, Form } from "react-bootstrap";
 import {
   MDBBtn,
@@ -9,8 +9,8 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import { useNavigate } from "react-router-dom";
-import axiosConfig from "../../config/axiosConfig";
+
+
 import "./LoginForm.css";
 import useForm from "../../hooks/useForm";
 import { LOGIN_INITIAL_VALUES } from "../../constants";
@@ -19,7 +19,7 @@ import { UserContext } from "../../context/UserContext";
 
 const LoginForm = () => {
   const { login, error, setError, flag, setFlag } = useContext(UserContext);
-  const navigate = useNavigate();
+  
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     LOGIN_INITIAL_VALUES,

@@ -99,7 +99,7 @@ const AddAlForm = ({ getStudents, handleClose }) => {
           className="button mt-3"
           variant="primary"
           type="submit"
-          // onClick={handleClose}
+          
         >
           Agregar
         </Button>

@@ -70,7 +70,7 @@ const SubjectProvider = ({ children }) => {
   return (
     <SubjectContext.Provider
       value={{
-        //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
+       
         flag,
         setFlag,
         closeModal,

@@ -27,7 +27,7 @@ const EditSubjectForm = ({ userId, handleClose, value }) => {
     if (error) {
       setTimeout(() => {
         setError({});
-        // goToHome();
+        
       }, 5000);
     }
     if (closeModal) {

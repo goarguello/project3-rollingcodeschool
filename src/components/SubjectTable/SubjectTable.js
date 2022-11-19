@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Spinner, Button, Pagination } from "react-bootstrap";
-import axiosConfig from "../../config/axiosConfig";
+
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { HiDocumentAdd } from "react-icons/hi";

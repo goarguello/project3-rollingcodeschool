@@ -160,7 +160,7 @@ const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        //GUARDAS LA LOGICA Y LOS ESTADOS QUE QUIERAS COMPARTIR
+        
         flag,
         setFlag,
         closeModal,

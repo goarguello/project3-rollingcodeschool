@@ -124,7 +124,7 @@ const EditAlForm = ({ handleClose, value }) => {
         <Button
           className="button mt-3"
           type="submit"
-          // onClick={handleClose}
+          
         >
           Editar
         </Button>
