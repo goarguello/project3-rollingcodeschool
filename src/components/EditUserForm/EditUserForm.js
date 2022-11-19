@@ -1,15 +1,11 @@
-import { ConsoleSqlOutlined } from "@ant-design/icons";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
-import axiosConfig from "../../config/axiosConfig";
-import { COURSES_VALUES, REGISTER_INITIAL_VALUES } from "../../constants";
+import { COURSES_VALUES } from "../../constants";
 import { UserContext } from "../../context/UserContext";
 import { validationRegister } from "../../helpers/validations";
 import useForm from "../../hooks/useForm";
 
 const EditUserForm = ({ handleClose, value }) => {
-  // const { value, getSingleUser, editUser, flag, setFlag } =
-  //   useContext(UserContext);
   const { editUser, setFlag, closeModal, setCloseModal, error } =
     useContext(UserContext);
 
@@ -30,8 +26,7 @@ const EditUserForm = ({ handleClose, value }) => {
 
   return (
     <Form onSubmit={(e) => handleSubmit(e, value._id, value.password)}>
-      {/* {flag ? (
-        // <> */}
+      
       <Form.Group className="mb-3">
         <Form.Label>Nombre completo</Form.Label>
         <Form.Control
@@ -120,7 +115,7 @@ const EditUserForm = ({ handleClose, value }) => {
         <Button
           className="button mt-3"
           type="submit"
-          // onClick={handleClose}
+          
         >
           Modificar
         </Button>

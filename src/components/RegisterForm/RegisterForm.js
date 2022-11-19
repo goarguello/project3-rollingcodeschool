@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Form, Alert } from "react-bootstrap";
 import {
   MDBBtn,
@@ -38,7 +38,7 @@ const RegisterForm = () => {
     setTimeout(() => {
       setSuccessRegister({});
       setError({})
-      // goToHome();
+      
     }, 5000);
   }, [flag]);
 
@@ -127,21 +127,7 @@ const RegisterForm = () => {
                         maxLength={25}
                         required
                       />
-                      {/* <MDBInput
-                        wrapperClass="mb-4 mx-5 w-100"
-                        labelClass="text-white"
-                        wrapperStyle={{}}
-                        label="Cursos a cargo"
-                        name="courseInCharge"
-                        value={values.courseInCharge}
-                        onChange={handleChange}
-                        id="formControlcourseInCharge"
-                        type="text"
-                        size="lg"
-                        minLength={3}
-                        maxLength={30}
-                        required
-                      /> */}
+                      
                       <MDBRow className="g-3 w-100 mb-2">
                         <MDBInput
                           wrapperClass="w-100"

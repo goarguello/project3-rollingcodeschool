@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Button, Form, Alert } from "react-bootstrap";
-import axiosConfig from "../../config/axiosConfig";
 import { REGISTER_INITIAL_VALUES, COURSES_VALUES } from "../../constants";
 import { UserContext } from "../../context/UserContext";
 import { validationRegister } from "../../helpers/validations";
